@@ -1,16 +1,16 @@
+import java.util.ArrayList;
+
 public class Queen extends Piece{
 
-    public Queen(int moveLocation){
-        super(moveLocation);
-    }
-    @Override
-    public int move() {
-        return 0;
+    public Queen(boolean black){
+        super(black);
     }
 
+
     @Override
-    public boolean isTaken() {
-        return false;
+    public ArrayList<int[]> possibleMoves(){
+
+        return new ArrayList<int[]>();
     }
 
     @Override

@@ -1,13 +1,25 @@
-public abstract class Piece {
-    int moveLocation;
+import java.util.ArrayList;
 
-    public Piece(int moveLocation){
-        this.moveLocation = moveLocation;
+public abstract class Piece {
+    private boolean black;
+
+    public Piece(boolean black){
+        this.black = black;
     }
 
-    public abstract int move();
+    public boolean move(int x, int y){
+        ArrayList<int[]> possibleMoves = possibleMoves();
+        boolean validMove = false;
+        for (int i = 0; i < possibleMoves.size();i = i + 1){
+            if (x == possibleMoves.get(i)[0] && y == possibleMoves.get(i)[1]){
+                validMove = true;
+            }
+        }
+        return validMove;
+    }
+    public abstract ArrayList<int[]>possibleMoves();
 
-    public abstract boolean isTaken();
+
 
     public abstract Piece newCopy();
 

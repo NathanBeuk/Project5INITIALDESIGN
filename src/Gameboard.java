@@ -1,9 +1,9 @@
 public class Gameboard {
 
-    private boolean [][]Spaces;
+    private Piece[][]board = new Piece[8][8];
 
     public Gameboard(){
-        Spaces = new boolean[8][8];
+
     }
 
     public String GameBoard(){
@@ -17,7 +17,8 @@ public class Gameboard {
         return 0;
     }
 
-    public boolean getSpace(int row, int col){
-        return Spaces[row][col];
+    public Piece getSpace(int row, int col){
+
+        return board[row][col];
     }
 }

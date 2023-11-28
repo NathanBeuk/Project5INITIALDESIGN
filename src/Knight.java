@@ -1,17 +1,17 @@
+import java.util.ArrayList;
+
 public class Knight extends Piece{
 
-    public Knight(int moveLocation){
-        super(moveLocation);
+    public Knight(boolean black){
+        super(black);
     }
 
-    @Override
-    public int move() {
-        return 0;
-    }
+
 
     @Override
-    public boolean isTaken() {
-        return false;
+    public ArrayList<int[]> possibleMoves(){
+
+        return new ArrayList<int[]>();
     }
 
     @Override

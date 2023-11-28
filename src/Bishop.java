@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 public class Bishop extends Piece{
 
-    public Bishop(int moveLocation){
-        super(moveLocation);
+    public Bishop(boolean black){
+        super(black);
     }
 
     @Override
@@ -10,8 +12,9 @@ public class Bishop extends Piece{
     }
 
     @Override
-    public boolean isTaken() {
-        return false;
+    public ArrayList<int[]> possibleMoves(){
+
+        return new ArrayList<int[]>();
     }
 
     @Override

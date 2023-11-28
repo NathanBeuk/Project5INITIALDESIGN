@@ -1,19 +1,18 @@
+import java.util.ArrayList;
+
 public class Rook extends Piece{
 
-    public Rook(int moveLocation){
-        super(moveLocation);
+    public Rook(boolean black){
+        super(black);
     }
+
+
 
     @Override
-    public int move() {
-        return 0;
-    }
+    public ArrayList<int[]>possibleMoves(){
 
-    @Override
-    public boolean isTaken() {
-        return false;
+        return new ArrayList<int[]>();
     }
-
     @Override
     public Piece newCopy() {
         return null;
