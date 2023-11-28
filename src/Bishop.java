@@ -6,10 +6,7 @@ public class Bishop extends Piece{
         super(black);
     }
 
-    @Override
-    public int move() {
-        return 0;
-    }
+
 
     @Override
     public ArrayList<int[]> possibleMoves(){
