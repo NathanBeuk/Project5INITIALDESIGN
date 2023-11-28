@@ -1,20 +1,18 @@
+import java.util.ArrayList;
+
 public class Pawn extends Piece{
 
-    public Pawn(int moveLocation){
-        super(moveLocation);
+    public Pawn(boolean black){
+        super(black);
     }
 
     @Override
-    public int move() {
-        return 0;
+    public ArrayList<int[]> possibleMoves(){
+
+        return new ArrayList<int[]>();
     }
 
-    @Override
-    public boolean isTaken() {
-        return false;
-    }
-
-    public int specialMove(){ //for two space first move
+    public int specialMove(){
         return 0;
     }
 
@@ -22,7 +20,6 @@ public class Pawn extends Piece{
     public int pawnTake(){
         return 0;
     }
-
     @Override
     public Piece newCopy() {
         return null;
