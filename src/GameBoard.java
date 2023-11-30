@@ -1,21 +1,21 @@
-public class Gameboard {
+public class GameBoard {
 
     private Piece[][]board = new Piece[8][8];
 
-    public Gameboard(){
+    public GameBoard(){
 
     }
 
     public String GameBoard(){
         return "";
     }
+    public void MovePiece(){
 
-    public int getRows(){
-        return 0;
     }
-    public int getCols(){
-        return 0;
+    public void RemovePiece(){
+
     }
+
 
     public Piece getSpace(int row, int col){
 

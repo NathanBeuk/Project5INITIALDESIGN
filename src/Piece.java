@@ -7,7 +7,7 @@ public abstract class Piece {
         this.black = black;
     }
 
-    public boolean move(int x, int y){
+    public boolean ValidMove(int x, int y){
         ArrayList<int[]> possibleMoves = possibleMoves();
         boolean validMove = false;
         for (int i = 0; i < possibleMoves.size();i = i + 1){

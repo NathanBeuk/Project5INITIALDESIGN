@@ -8,7 +8,7 @@ public class Pawn extends Piece{
 
     @Override
     public ArrayList<int[]> possibleMoves(){
-
+        //method for pawn take because only piece with different take vs regular move
         return new ArrayList<int[]>();
     }
 
@@ -16,7 +16,7 @@ public class Pawn extends Piece{
         return 0;
     }
 
-    //method for pawn take because only piece with different take vs regular move
+
     public int pawnTake(){
         return 0;
     }

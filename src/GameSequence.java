@@ -2,13 +2,14 @@ import java.util.ArrayList;
 
 public class GameSequence {
 
-    private ArrayList<Gameboard> list = new ArrayList<>();
+    private ArrayList<GameBoard> list = new ArrayList<>();
     public GameSequence(){
 
     }
 
-    public Gameboard gameAt(){
-      return new Gameboard();
+    public GameBoard gameAt(int index){
+
+        return new GameBoard();
     }
 
     public String toString(){
