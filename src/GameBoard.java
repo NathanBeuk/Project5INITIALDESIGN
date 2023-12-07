@@ -1,3 +1,10 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+
+
 /**
  * Description
  * @author Adoniram Courser and Nathan Beukema
@@ -6,10 +13,15 @@
  */
 public class GameBoard {
 
+
+
+
+
+
     /**
      * a Two dimensional array for a single board
      */
-    private Piece[][]board = new Piece[8][8];
+    private GameBoard[][]board = new GameBoard[8][8];
 
     /**
      * constructor
@@ -37,11 +49,12 @@ public class GameBoard {
 
     /**
      * gets a position on the board
+     *
      * @param row
      * @param col
      * @return
      */
-    public Piece getSpace(int row, int col){
+    public GameBoard getSpace(int row, int col){
 
         return board[row][col];
     }

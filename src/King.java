@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  * Description a sub class of the abstract piece class
  * @author Adoniram Courser and Nathan Beukema

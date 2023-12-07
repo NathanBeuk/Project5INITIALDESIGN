@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Stack;
+
 /**
  * Description
  * @author Adoniram Courser and Nathan Beukema
@@ -8,24 +10,33 @@ import java.util.ArrayList;
 public class GameSequence {
 
     /**
-     * an ArrayList to hold all the boards
+     * A stack to hold all the boards
      */
-    private ArrayList<GameBoard> list = new ArrayList<>();
+    private Stack<GameBoard> actualGame = new Stack<>();
+    private Stack<GameBoard> removedMoves = new Stack<>();
 
     /**
      * constructor
      */
-    public GameSequence(){
-
+    public GameSequence(GameBoard startingBoard){
+        actualGame.push(startingBoard);
     }
 
     /**
      * returns a boards at a certain index (number of moves since beginning of game)
-     * @param index
      * @return
      */
-    public GameBoard gameAt(int index){
 
+    //takes most recent move from play and puts it onto a rewound moves stack
+    public GameBoard gameRewind(){
+        removedMoves.push(actualGame.pop());
+        return new GameBoard();
+    }
+
+
+    // takes most recent move from removedmoves and reinserts it onto the actual game stack
+    public GameBoard gameForward(){
+        actualGame.push(removedMoves.pop());
         return new GameBoard();
     }
 }
