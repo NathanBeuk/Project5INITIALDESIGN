@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI implements ActionListener {
+public class BasicGUI implements ActionListener {
     private int count = 0;
     private JLabel label;
     private JButton button;
     JPanel panel;
     JFrame frame;
-    public GUI(){
+    public BasicGUI(){
 
 
 
@@ -42,7 +42,7 @@ public class GUI implements ActionListener {
         //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
-        new GUI();
+        new BasicGUI();
 //
     }
 

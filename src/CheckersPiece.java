@@ -1,6 +1,8 @@
+import OldChessPieces.Piece;
+
 import java.util.ArrayList;
 
-public class CheckersPiece extends Piece{
+public class CheckersPiece extends Piece {
     /**
      * @param black
      */

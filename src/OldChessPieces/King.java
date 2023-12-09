@@ -1,3 +1,5 @@
+package OldChessPieces;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -7,7 +9,7 @@ import java.util.LinkedList;
  * @version 1.0
  * @since 11-29-23
  */
-public class King extends Piece{
+public class King extends Piece {
 
     /**
      *
