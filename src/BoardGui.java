@@ -91,7 +91,7 @@ public class BoardGui extends JFrame {
 
     public void colorPossibleMoves(ArrayList<int[]> possibleMoves){
         for (int i = 0; i < possibleMoves.size(); i = i + 1){
-
+            buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(Color.BLUE);
         }
     }
     public void displayValue(int row, int column){
@@ -111,7 +111,7 @@ public class BoardGui extends JFrame {
             ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
             lastSelectedPiecesPossibleMoves = possibleMoves;
 
-
+            colorPossibleMoves(possibleMoves);
             System.out.println(currentBoard[row][column]);
         }
 
