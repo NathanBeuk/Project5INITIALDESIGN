@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -12,13 +11,13 @@ public class GameSequence {
     /**
      * A stack to hold all the boards
      */
-    private Stack<GameBoard> actualGame = new Stack<>();
-    private Stack<GameBoard> removedMoves = new Stack<>();
+    private Stack<GameRules> actualGame = new Stack<>();
+    private Stack<GameRules> removedMoves = new Stack<>();
 
     /**
      * constructor
      */
-    public GameSequence(GameBoard startingBoard){
+    public GameSequence(GameRules startingBoard){
         actualGame.push(startingBoard);
     }
 
@@ -28,15 +27,15 @@ public class GameSequence {
      */
 
     //takes most recent move from play and puts it onto a rewound moves stack
-    public GameBoard gameRewind(){
+    public GameRules gameRewind(){
         removedMoves.push(actualGame.pop());
-        return new GameBoard();
+        return new GameRules();
     }
 
 
     // takes most recent move from removedmoves and reinserts it onto the actual game stack
-    public GameBoard gameForward(){
+    public GameRules gameForward(){
         actualGame.push(removedMoves.pop());
-        return new GameBoard();
+        return new GameRules();
     }
 }

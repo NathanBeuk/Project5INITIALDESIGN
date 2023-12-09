@@ -71,5 +71,6 @@ public class BoardGui extends JFrame {
     }
 
     public void updateBoard(String[][] board){
+
     }
 }

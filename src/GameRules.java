@@ -1,17 +1,10 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-
-
 /**
  * Description
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
  */
-public class GameBoard {
+public class GameRules {
 
 
 
@@ -21,12 +14,12 @@ public class GameBoard {
     /**
      * a Two dimensional array for a single board
      */
-    private GameBoard[][]board = new GameBoard[8][8];
+    private GameRules[][]board = new GameRules[8][8];
 
     /**
      * constructor
      */
-    public GameBoard(){
+    public GameRules(){
 
     }
 
@@ -54,7 +47,7 @@ public class GameBoard {
      * @param col
      * @return
      */
-    public GameBoard getSpace(int row, int col){
+    public GameRules getSpace(int row, int col){
 
         return board[row][col];
     }
