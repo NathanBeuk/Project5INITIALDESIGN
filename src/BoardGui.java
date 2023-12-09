@@ -19,13 +19,22 @@ public class BoardGui extends JFrame {
         setLayout(new GridLayout(8, 8));//makes sure its set up as a grid
 
         //following generates new JButtons and adds them to two-D array of them while referencing new board
+        Color tan = new Color(210, 180, 140);
+        Color black = Color.black;
+        Color darkRed = new Color(139, 0 ,0);
         for (int i = 0; i < 8; i = i + 1){
             for (int j = 0; j < 8; j = j +1){
+
                 buttons[i][j] = new JButton();
                 buttons[i][j].setText(currentBoard[i][j]);
                 buttons[i][j].addActionListener(new ButtonClickListener(i,j,this));
-                buttons[i][j].setBackground(new Color(210, 180, 140));//should be tan-ish
 
+                if (i + j == 0 || (i + j) % 2 == 0){
+                    buttons[i][j].setBackground(tan);//should be tan-ish
+                }
+                else {
+                    buttons[i][j].setBackground(darkRed);
+                }
                 add(buttons[i][j]);//adds button to content pane of frame so its presented
 
             }
