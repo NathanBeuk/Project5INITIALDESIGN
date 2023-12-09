@@ -24,6 +24,8 @@ public class BoardGui extends JFrame {
                 buttons[i][j] = new JButton();
                 buttons[i][j].setText(currentBoard[i][j]);
                 buttons[i][j].addActionListener(new ButtonClickListener(i,j,this));
+                buttons[i][j].setBackground(new Color(210, 180, 140));//should be tan-ish
+
                 add(buttons[i][j]);//adds button to content pane of frame so its presented
 
             }
