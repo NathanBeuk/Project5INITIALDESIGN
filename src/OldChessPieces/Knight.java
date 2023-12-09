@@ -1,18 +1,19 @@
-import java.util.ArrayList;
+package OldChessPieces;
 
+import java.util.ArrayList;
 /**
  * Description a sub class of the abstract piece class
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
  */
-public class Rook extends Piece{
+public class Knight extends Piece {
 
     /**
      *
      * @param black
      */
-    public Rook(boolean black){
+    public Knight(boolean black){
         super(black);
     }
 
@@ -22,7 +23,7 @@ public class Rook extends Piece{
      * @return an arrayList of coordinates for possible moves
      */
     @Override
-    public ArrayList<int[]>possibleMoves(){
+    public ArrayList<int[]> possibleMoves(){
 
         return new ArrayList<int[]>();
     }

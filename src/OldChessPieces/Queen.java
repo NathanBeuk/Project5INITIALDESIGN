@@ -1,3 +1,7 @@
+package OldChessPieces;
+
+import OldChessPieces.Piece;
+
 import java.util.ArrayList;
 
 /**
@@ -6,7 +10,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 11-29-23
  */
-public class Queen extends Piece{
+public class Queen extends Piece {
 
     /**
      *

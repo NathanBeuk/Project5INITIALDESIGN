@@ -1,3 +1,5 @@
+package OldChessPieces;
+
 import java.util.ArrayList;
 /**
  * Description a sub class of the abstract piece class
@@ -5,16 +7,15 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 11-29-23
  */
-public class Bishop extends Piece{
+public class Pawn extends Piece {
 
     /**
      *
      * @param black
      */
-    public Bishop(boolean black){
+    public Pawn(boolean black){
         super(black);
     }
-
 
     /**
      *
@@ -22,8 +23,26 @@ public class Bishop extends Piece{
      */
     @Override
     public ArrayList<int[]> possibleMoves(){
-
+        //method for pawn take because only piece with different take vs regular move
         return new ArrayList<int[]>();
+    }
+
+    /**
+     *
+     * @return XYValue for en passant, will likely be replaced by the more general possible moves method
+     */
+    public int[] specialMove(){
+        int[] XYValue = {0,0};
+        return XYValue;
+    }
+
+
+    /**
+     *
+     * @return the positions for a pawn taking pieces since they are different from normal pawn movement unlike most pieces
+     */
+    public int pawnTake(){
+        return 0;
     }
     /**
      * returns a copy of a piece (though since no piece of a specific sub-class has any unique class variables a copy method is likely unessesary
@@ -35,3 +54,4 @@ public class Bishop extends Piece{
         return null;
     }
 }
+

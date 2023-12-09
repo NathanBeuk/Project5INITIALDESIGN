@@ -1,3 +1,5 @@
+package OldChessPieces;
+
 import java.util.ArrayList;
 /**
  * Description a sub class of the abstract piece class
@@ -5,13 +7,13 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 11-29-23
  */
-public class Knight extends Piece{
+public class Bishop extends Piece {
 
     /**
      *
      * @param black
      */
-    public Knight(boolean black){
+    public Bishop(boolean black){
         super(black);
     }
 
