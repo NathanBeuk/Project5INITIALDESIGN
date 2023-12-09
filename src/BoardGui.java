@@ -22,16 +22,21 @@ public class BoardGui extends JFrame {
         for (int i = 0; i < 8; i = i + 1){
             for (int j = 0; j < 8; j = j +1){
                 buttons[i][j] = new JButton();
-                buttons[i][j].setText(board[i][j]);
-                buttons[i][j].addActionListener();
+                buttons[i][j].setText(currentBoard[i][j]);
+                buttons[i][j].addActionListener(new ButtonClickListener(i,j,this));
+                add(buttons[i][j]);//adds button to content pane of frame so its presented
+
             }
         }
+        setSize(400,400);//sets size of frame I think
+        setLocationRelativeTo(null);//centers it I think lol im just going off description TODO make sure this works the way I think it does
+        setVisible(true);
     }
+
+    public void displayValue(int row, int column){
+        JOptionPane.showMessageDialog(this, currentBoard[row][column]);
+    }
+
     public void updateBoard(String[][] board){
-
-
-
-
-
     }
 }
