@@ -22,5 +22,8 @@ public class Game {
                 {"end"     , "R_W", "H_W", "B_W", "Q_W", "K_W", "B_W", "H_W","R_W"},
         };
         new BoardGui(starterBoard);
+
+
+
     }
 }

@@ -10,6 +10,7 @@ public class BoardGui extends JFrame {
     private JButton[][] buttons;
 
     private ArrayList<int[]> lastSelectedPiecesPossibleMoves;
+    private int[] lastSelectedPosition;
 
     private GameRules gameRules;
 
@@ -19,6 +20,7 @@ public class BoardGui extends JFrame {
         currentBoard = board;
         buttons = new JButton[board.length][board[0].length];
         lastSelectedPiecesPossibleMoves = new ArrayList<>();
+        lastSelectedPosition = new int[]{0, 0};//TODO invalid selection
         gameRules = new GameRules();
 
         //following lines of code are possible because it extends the JFrame class, meaning we don't have to call new JFrame (since this is a JFrame)
@@ -78,26 +80,28 @@ public class BoardGui extends JFrame {
         }
     }
 
-    public boolean isInArrayList(int row, int column, ArrayList<int[]> possibleMoves){
-
-        for (int i = 0; i < possibleMoves.size(); i = i +1){
-            if (possibleMoves.get(i)[0] == row && possibleMoves.get(i)[1] == column){
-                possibleMoves.clear();
-                return true;
+    public boolean isInArrayList(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition){//checks if the last selected position was a valid tile, and if current selected tile in in possible moves for last selected tile
+        if (gameRules.validPosition(lastposition[0], lastposition[1], currentBoard)){
+            for (int i = 0; i < possibleMoves.size(); i = i +1){
+                if (possibleMoves.get(i)[0] == row && possibleMoves.get(i)[1] == column){
+                    possibleMoves.clear();
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public void colorPossibleMoves(ArrayList<int[]> possibleMoves){
+    public void colorPossibleMoves(ArrayList<int[]> possibleMoves){//TODO not finished I think
         for (int i = 0; i < possibleMoves.size(); i = i + 1){
             buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(Color.BLUE);
         }
     }
     public void displayValue(int row, int column){
-        boolean pieceShouldMove = isInArrayList(row, column, lastSelectedPiecesPossibleMoves);
+        boolean pieceShouldMove = isInArrayList(row, column, lastSelectedPiecesPossibleMoves, lastSelectedPosition);
 
-
+        //TODO checking if button was even a valid piece and not a command button
+        //TODO valid index
         normalizeColors();
 
         if (pieceShouldMove){
@@ -106,6 +110,9 @@ public class BoardGui extends JFrame {
             setBoardText();//changes the text on the frame
         }
         else {
+            lastSelectedPosition[0] = row;
+            lastSelectedPosition[1] = column;
+
 
             buttons[row][column].setBackground(Color.cyan);
             ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);

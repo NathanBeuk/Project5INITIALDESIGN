@@ -11,31 +11,59 @@ public class GameSequence {
     /**
      * A stack to hold all the boards
      */
-    private Stack<GameRules> actualGame = new Stack<>();
-    private Stack<GameRules> removedMoves = new Stack<>();
+    private Stack<String[][]> pastBoards = new Stack<>();
+    private String[][] presentBoard;
+    private Stack<String[][]> futureBoards = new Stack<>();
 
     /**
      * constructor
      */
-    public GameSequence(GameRules startingBoard){
-        actualGame.push(startingBoard);
+    public GameSequence(String[][] startingBoard){
+        presentBoard = startingBoard;
     }
 
+    public String[][] move(String[][] newBoard){
+
+        pastBoards.push(presentBoard);
+        presentBoard = newBoard;
+
+
+        return presentBoard;
+    }
+    public String[][] deepCopy(String[][] board){
+        String[][] copy = new String[board.length][board[0].length];
+
+        for (int i = 0; i < board.length; i = i + 1){
+            for (int j = 0; j < board[0].length; j++) {
+                String string = board[i][j];
+                copy[i][j] = string + "";
+
+            }
+        }
+        return copy;
+    }
     /**
      * returns a boards at a certain index (number of moves since beginning of game)
      * @return
      */
 
     //takes most recent move from play and puts it onto a rewound moves stack
-    public GameRules gameRewind(){
-        removedMoves.push(actualGame.pop());
-        return new GameRules();
+    public String[][] gameRewind(){
+        if (pastBoards.size() != 0){
+            futureBoards.push(presentBoard);
+            presentBoard = pastBoards.pop();
+        }
+        return presentBoard;
     }
 
 
-    // takes most recent move from removedmoves and reinserts it onto the actual game stack
-    public GameRules gameForward(){
-        actualGame.push(removedMoves.pop());
-        return new GameRules();
+    // takes most recent move from removed moves and reinserts it onto the actual game stack
+    public String[][] gameForward(){
+        if (futureBoards.size() != 0) {
+            pastBoards.push(presentBoard);
+            presentBoard = futureBoards.pop();
+        }
+
+        return presentBoard;
     }
 }
