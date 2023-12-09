@@ -34,13 +34,13 @@ public class BoardGui extends JFrame {
             for (int j = 0; j < 9; j = j +1){//9 columns for commands lines
 
                 buttons[i][j] = new JButton();
-                buttons[i][j].setText(currentBoard[i][j]);
                 buttons[i][j].addActionListener(new ButtonClickListener(i,j,this));
                 buttons[i][j].setPreferredSize(buttonSize);
 
                 add(buttons[i][j]);//adds button to content pane of frame so its presented
             }
         }
+        setBoardText();
         normalizeColors();
 
         setSize(600,600);//sets size of frame I think
@@ -77,26 +77,42 @@ public class BoardGui extends JFrame {
             }
         }
     }
-    public void displayValue(int row, int column){
-        boolean pieceMoved = false;
 
-        for (int i = 0; i < lastSelectedPiecesPossibleMoves.size(); i = i +1){
-            if (lastSelectedPiecesPossibleMoves.get(i)[0] == row && lastSelectedPiecesPossibleMoves.get(i)[1] == column){
-                lastSelectedPiecesPossibleMoves.clear();
-                pieceMoved = true;
-                break;
+    public boolean isInArrayList(int row, int column, ArrayList<int[]> possibleMoves){
+
+        for (int i = 0; i < possibleMoves.size(); i = i +1){
+            if (possibleMoves.get(i)[0] == row && possibleMoves.get(i)[1] == column){
+                possibleMoves.clear();
+                return true;
             }
         }
+        return false;
+    }
+
+    public void colorPossibleMoves(ArrayList<int[]> possibleMoves){
+        for (int i = 0; i < possibleMoves.size(); i = i + 1){
+
+        }
+    }
+    public void displayValue(int row, int column){
+        boolean pieceShouldMove = isInArrayList(row, column, lastSelectedPiecesPossibleMoves);
+
+
         normalizeColors();
-        currentBoard = gameRules.flipBoard(currentBoard);
-        setBoardText();
-        if (pieceMoved){
+
+        if (pieceShouldMove){
             //TODO move piece somehow, well calculations will already have been done so maybe I just move the string in both array, and button text, and
+            currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved
+            setBoardText();//changes the text on the frame
         }
         else {
 
             buttons[row][column].setBackground(Color.cyan);
-            JOptionPane.showMessageDialog(this, currentBoard[row][column]);
+            ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
+            lastSelectedPiecesPossibleMoves = possibleMoves;
+
+
+            System.out.println(currentBoard[row][column]);
         }
 
 
