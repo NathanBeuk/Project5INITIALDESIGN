@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Description
  * @author Adoniram Courser and Nathan Beukema
@@ -11,10 +13,6 @@ public class GameRules {
 
 
 
-    /**
-     * a Two dimensional array for a single board
-     */
-    private GameRules[][]board = new GameRules[8][8];
 
     /**
      * constructor
@@ -23,32 +21,56 @@ public class GameRules {
 
     }
 
-    /**
-     * a method to move a piece in the two-D arrayList
-     * It may make more sense for it to copy itself and return an edited version of its self
-     */
-    public void MovePiece(){
+    public ArrayList<int[]> getPossibleMoves(int row, int column, String[][] currentBoard){
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
 
+        /*
+        if black
+            if rook
+            if knight
+            if bishop
+            if queen
+            if king
+            if pawn
+
+        else if white
+            if rook
+            if knight
+            if bishop
+            if queen
+            if king
+            if pawn
+         */
+        return possibleMoves;
+    }
+    public String[][] flipBoard(String[][] board){//will be useful to simplyfy operations
+        int rows = board.length;
+        int columns = board[0].length;
+
+        for (int i = 0; i < rows; i = i + 1){
+            for (int j = 1; j <= columns/2; j = j + 1){
+
+                String temp = board[i][j];
+                board[i][j] = board[rows - 1 - i][columns - j];
+                board[rows - 1 - i][columns - j] = temp;
+
+
+            }
+        }
+        return board;
     }
 
-    /**
-     * a method to remove a piece in the two-D arrayList
-     * It may make more sense for it to copy itself and return an edited version of its self
-     */
-    public void RemovePiece(){
-
+    public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard, String pieceType){
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        /*
+        if pieceType == "King"
+        else if pieceType == "Pawn"
+        else if pieceType == "Queen" || pieceType == "Bishop"
+        else
+            return empty
+         */
+        return possibleMoves;
     }
 
 
-    /**
-     * gets a position on the board
-     *
-     * @param row
-     * @param col
-     * @return
-     */
-    public GameRules getSpace(int row, int col){
-
-        return board[row][col];
-    }
 }

@@ -19,7 +19,7 @@ public class Game {
                 {"Ai maybe", ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
                 {"Idk"     , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
                 {"p-taken" , "P_W", "P_W", "P_W", "P_W", "P_W", "P_W", "P_W","P_W"},
-                {"end"     , "R_W", "H_W", "B_W", "Q_W", "K_W", "B_B", "H_B","R_B"},
+                {"end"     , "R_W", "H_W", "B_W", "Q_W", "K_W", "B_W", "H_W","R_W"},
         };
         new BoardGui(starterBoard);
     }

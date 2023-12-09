@@ -2,19 +2,24 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BoardGui extends JFrame {
     private String[][] currentBoard;
 
     private JButton[][] buttons;
 
+    private ArrayList<int[]> lastSelectedPiecesPossibleMoves;
+
+    private GameRules gameRules;
+
 
     public BoardGui(String[][] board){
 
         currentBoard = board;
         buttons = new JButton[board.length][board[0].length];
+        lastSelectedPiecesPossibleMoves = new ArrayList<>();
+        gameRules = new GameRules();
 
         //following lines of code are possible because it extends the JFrame class, meaning we don't have to call new JFrame (since this is a JFrame)
         setTitle("Chess");//just sets the title of the JFrame
@@ -43,7 +48,15 @@ public class BoardGui extends JFrame {
         setVisible(true);
     }
 
+    public void setBoardText(){
+        for (int i = 0; i < 8; i = i + 1){
+            for (int j = 0; j < 9; j = j +1){//9 columns for commands lines
 
+                buttons[i][j].setText(currentBoard[i][j]);
+
+            }
+        }
+    }
     public void normalizeColors(){
         Color tan = new Color(210, 180, 140);//should be tan-ish
         Color darkRed = new Color(139, 0 ,0);//should be dark red ish
@@ -65,12 +78,34 @@ public class BoardGui extends JFrame {
         }
     }
     public void displayValue(int row, int column){
-        normalizeColors();
-        buttons[row][column].setBackground(Color.cyan);
-        JOptionPane.showMessageDialog(this, currentBoard[row][column]);
-    }
+        boolean pieceMoved = false;
 
+        for (int i = 0; i < lastSelectedPiecesPossibleMoves.size(); i = i +1){
+            if (lastSelectedPiecesPossibleMoves.get(i)[0] == row && lastSelectedPiecesPossibleMoves.get(i)[1] == column){
+                lastSelectedPiecesPossibleMoves.clear();
+                pieceMoved = true;
+                break;
+            }
+        }
+        normalizeColors();
+        currentBoard = gameRules.flipBoard(currentBoard);
+        setBoardText();
+        if (pieceMoved){
+            //TODO move piece somehow, well calculations will already have been done so maybe I just move the string in both array, and button text, and
+        }
+        else {
+
+            buttons[row][column].setBackground(Color.cyan);
+            JOptionPane.showMessageDialog(this, currentBoard[row][column]);
+        }
+
+
+
+
+
+    }
     public void updateBoard(String[][] board){
+
 
     }
 }
