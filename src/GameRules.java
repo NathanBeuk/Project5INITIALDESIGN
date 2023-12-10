@@ -186,13 +186,16 @@ public class GameRules {
     public ArrayList<int[]> bishopPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMoves = new ArrayList<>();
 
-
-        for (int i = row; i < (row) + (column); i++) {
-            for (int j = row; j < currentBoard[0].length; j++) {
+        for (int i = row; i < currentBoard.length; ) {
+            for (int j = column; j < currentBoard[0].length; j++) {
                 BISHOPpossibleMoves.add(position(i, j));
                 i++;
             }
         }
+
+       // for (int i = column - row; i < currentBoard.length; i++) {
+         //   BISHOPpossibleMoves.add(position(i,i));
+        //}
 
         return BISHOPpossibleMoves;
     }
