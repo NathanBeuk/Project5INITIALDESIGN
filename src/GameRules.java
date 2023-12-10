@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * Description
  * @author Adoniram Courser and Nathan Beukema
@@ -7,19 +6,14 @@ import java.util.ArrayList;
  * @since 11-29-23
  */
 public class GameRules {
-
-
-
-
-
-
-
     /**
      * constructor
      */
     public GameRules(){
 
     }
+
+
 
     public ArrayList<int[]> getPossibleMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
@@ -30,7 +24,7 @@ public class GameRules {
                 possibleMoves.addAll(pawnPossibleMoves(row,column,currentBoard));
             }
             else if (piece.charAt(0) == 'R'){
-
+                possibleMoves.addAll(rookPossibleMoves(row, column, currentBoard));
             }
             else if (piece.charAt(0) == 'H'){
 
@@ -47,9 +41,9 @@ public class GameRules {
 
 
         }
-
         return possibleMoves;
     }
+    
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
         //TODO en passant later
@@ -68,13 +62,44 @@ public class GameRules {
             if (enemy(currentBoard[row][column],currentBoard[row - 1][column + 1])){
                 possibleMoves.add(position(row - 1,column + 1));
             }
-
         }
         return possibleMoves;
     }
     public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard){
+        int numRows = currentBoard.length;
+        int numColumns = currentBoard[0].length;
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+
+        for (int i = row; i < numRows;) {
+            for (int j = column; j < numColumns;) {
+
+                if(validPosition(i, j, currentBoard)){
+                    if(currentBoard[row - i][column].equals("")){
+                        if (enemy(currentBoard[row][column], currentBoard[row - i][column])){
+                            possibleMoves.add(position(i, j));
+                        }
+                    } else if (currentBoard[i][column + j].equals("")) {
+                        if (enemy(currentBoard[row][column], currentBoard[i][column + j])) {
+                            possibleMoves.add(position(i, j));
+                        }
+                    } else if (currentBoard[i][column - j].equals("")) {
+                        if (enemy(currentBoard[row][column], currentBoard[i][column - j])){
+                            possibleMoves.add(position(i, j));
+                        }
+                    }
+                }
+            }
+        }
+        return possibleMoves;
+    }
+
+    public ArrayList<int[]> horsePossibleMoves(int row, int column, String[][] currentBoard){
+
         return new ArrayList<>();
     }
+
+
+
     public boolean validPosition(int row, int column, String[][] board){
         int numRows = board.length;
         int numColumns = board[0].length;
@@ -122,8 +147,4 @@ public class GameRules {
         }
         return board;
     }
-
-
-
-
 }
