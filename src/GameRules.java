@@ -186,16 +186,41 @@ public class GameRules {
     public ArrayList<int[]> bishopPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMoves = new ArrayList<>();
 
-        for (int i = row; i < currentBoard.length; ) {
+        for (int i = row; i < currentBoard.length - row; ) { //right and down
             for (int j = column; j < currentBoard[0].length; j++) {
-                BISHOPpossibleMoves.add(position(i, j));
-                i++;
+                if(validPosition(i, j, currentBoard)) {
+                    BISHOPpossibleMoves.add(position(i, j));
+                    i++;
+                }
             }
         }
 
-       // for (int i = column - row; i < currentBoard.length; i++) {
-         //   BISHOPpossibleMoves.add(position(i,i));
-        //}
+        for (int i = row; i > 0; ) { //right and up
+            for (int j = column; j < currentBoard[0].length; j++) {
+                if(validPosition(i, j, currentBoard)) {
+                    BISHOPpossibleMoves.add(position(i, j));
+                    i--;
+                }
+            }
+        }
+
+        for (int i = row; i < currentBoard.length; ) { // left and down
+            for (int j = column; j > 0; j--) {
+                if(validPosition(i, j, currentBoard)) {
+                    BISHOPpossibleMoves.add(position(i, j));
+                    i++;
+                }
+            }
+        }
+
+        for (int i = row; i > 0; ) { // left and up
+            for (int j = column; j > 0; j--) {
+                if(validPosition(i, j, currentBoard)) {
+                    BISHOPpossibleMoves.add(position(i, j));
+                    i--;
+                }
+            }
+        }
 
         return BISHOPpossibleMoves;
     }
