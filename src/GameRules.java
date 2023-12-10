@@ -67,12 +67,19 @@ public class GameRules {
         for (int i = currentBoard.length; i >= 0; i--) {
             if (validPosition(i, column, currentBoard)) {
                 ROOKpossiblemoves.add(position(i, column));
+                if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                    ROOKpossiblemoves.add(position(i, column));
+                    break;
+                }
             }
         }
-
         for (int j = currentBoard[0].length; j >= 0; j--) {
             if (validPosition(row, j, currentBoard)) {
                 ROOKpossiblemoves.add(position(row, j));
+                if (enemy(currentBoard[row][column], currentBoard[row][j])) {
+                    ROOKpossiblemoves.add(position(row, j));
+                    break;
+                }
             }
         }
         return ROOKpossiblemoves;
@@ -254,6 +261,18 @@ public class GameRules {
         }
         return true;//is an enemy
     }
+
+    /*
+    public boolean friendly(String movingPiece, String possibleEnemy) {
+        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+            return false;//not an enemy
+        }
+        return true;//is an enemy
+    }
+
+     */
+
+
 
 
     public int[] position(int row, int column) {
