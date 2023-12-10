@@ -12,14 +12,14 @@ public class Game {
      */
     public static void main(String[] args) {
         String[][] starterBoard = {// R = rook, H = horse(knight), B = Bishop, Q = queen, K = king, P = pawn, first column will just be command lines
-                {"forward" , "R_B", "H_B", "B_B", "Q_B", "K_B", "B_B", "H_B","R_B"},
-                {"backward", "P_B", "P_B", "P_B", "P_B", "P_B", "P_B", "P_B","P_B"},
-                {"hello"   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
-                {"bye"     , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
-                {"Ai maybe", ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
-                {"Idk"     , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""  },
-                {"p-taken" , "P_W", "P_W", "P_W", "P_W", "P_W", "P_W", "P_W","P_W"},
-                {"end"     , "R_W", "H_W", "B_W", "Q_W", "K_W", "B_W", "H_W","R_W"},
+                {"forward" , "R_B0", "H_B0", "B_B0", "Q_B0", "K_B0", "B_B0", "H_B0","R_B0"},
+                {"backward", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0","P_B0"},
+                {"hello"   , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"bye"     , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"Ai maybe", ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"Idk"     , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"p-taken" , "P_W0", "P_W0", "P_W0", "P_W0", "P_W0", "P_W0", "P_W0","P_W0"},
+                {"end"     , "R_W0", "H_W0", "B_W0", "Q_W0", "K_W0", "B_W0", "H_W0","R_W0"},
         };
         new BoardGui(starterBoard);
 

@@ -114,7 +114,12 @@ public class BoardGui extends JFrame {
 
         if (pieceShouldMove){
             //TODO move piece somehow, well calculations will already have been done so maybe I just move the string in both array, and button text, and
-            currentBoard[row][column] = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];//moves piece to position in game
+            String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
+
+            int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
+            movingPiece = movingPiece.substring(0,3) + timesMoved;
+
+            currentBoard[row][column] = movingPiece;//moves piece to position in game
             currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
 
             if (team == 'W'){
