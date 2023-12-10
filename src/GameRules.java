@@ -54,18 +54,18 @@ public class GameRules {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
         //TODO en passant later
         if (currentBoard[row - 1][column].equals("")){//position directly infront is empty and therefore pawn can move
-            if (validMove(row-1, column, currentBoard)){
+            if (validPosition(row-1, column, currentBoard)){
                 possibleMoves.add(position(row-1,column));
             }
         }
         if (enemy(currentBoard[row][column],currentBoard[row - 1][column - 1])){
-            if (validMove(row-1, column - 1, currentBoard)){
+            if (validPosition(row-1, column - 1, currentBoard)){
                 possibleMoves.add(position(row - 1,column - 1));
             }
 
         }
         if (enemy(currentBoard[row][column],currentBoard[row - 1][column + 1])){
-            if (validMove(row-1, column + 1, currentBoard)){
+            if (validPosition(row-1, column + 1, currentBoard)){
                 possibleMoves.add(position(row - 1,column + 1));
             }
 
@@ -86,7 +86,7 @@ public class GameRules {
         return false;
     }
     public boolean enemy(String movingPiece, String possibleEnemy){
-        if (movingPiece.charAt(2) == possibleEnemy.charAt(2)){
+        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)){//needs to check if empty string before trying to get any chars from it
             return false;//not an enemy
         }
         return true;//is an enemy

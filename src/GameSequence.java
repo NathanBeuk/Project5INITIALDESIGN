@@ -19,13 +19,13 @@ public class GameSequence {
      * constructor
      */
     public GameSequence(String[][] startingBoard){
-        presentBoard = startingBoard;
+        presentBoard = deepCopy(startingBoard);
     }
 
     public String[][] move(String[][] newBoard){
 
         pastBoards.push(presentBoard);
-        presentBoard = newBoard;
+        presentBoard = deepCopy(newBoard);
 
 
         return presentBoard;

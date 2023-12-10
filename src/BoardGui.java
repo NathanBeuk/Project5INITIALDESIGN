@@ -13,6 +13,9 @@ public class BoardGui extends JFrame {
     private int[] lastSelectedPosition;
 
     private GameRules gameRules;
+    private GameSequence gameSequence;
+
+    private char team;
 
 
     public BoardGui(String[][] board){
@@ -22,6 +25,10 @@ public class BoardGui extends JFrame {
         lastSelectedPiecesPossibleMoves = new ArrayList<>();
         lastSelectedPosition = new int[]{0, 0};//TODO invalid selection
         gameRules = new GameRules();
+        gameSequence = new GameSequence(board);
+        team = 'W';
+
+
 
         //following lines of code are possible because it extends the JFrame class, meaning we don't have to call new JFrame (since this is a JFrame)
         setTitle("Chess");//just sets the title of the JFrame
@@ -82,6 +89,7 @@ public class BoardGui extends JFrame {
 
     public boolean isInArrayList(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition){//checks if the last selected position was a valid tile, and if current selected tile in in possible moves for last selected tile
         if (gameRules.validPosition(lastposition[0], lastposition[1], currentBoard)){
+
             for (int i = 0; i < possibleMoves.size(); i = i +1){
                 if (possibleMoves.get(i)[0] == row && possibleMoves.get(i)[1] == column){
                     possibleMoves.clear();
@@ -106,8 +114,19 @@ public class BoardGui extends JFrame {
 
         if (pieceShouldMove){
             //TODO move piece somehow, well calculations will already have been done so maybe I just move the string in both array, and button text, and
+            currentBoard[row][column] = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];//moves piece to position in game
+            currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
+
+            if (team == 'W'){
+                team = 'B';
+            }else {
+                team = 'W';
+            }
+
             currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved
             setBoardText();//changes the text on the frame
+
+
         }
         else {
             lastSelectedPosition[0] = row;
@@ -115,20 +134,16 @@ public class BoardGui extends JFrame {
 
 
             buttons[row][column].setBackground(Color.cyan);
-            ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
-            lastSelectedPiecesPossibleMoves = possibleMoves;
+            String lastPiece = currentBoard[row][column];
+            if (lastPiece.length() > 0){
+                if (lastPiece.charAt(2) == team){
+                    ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
+                    lastSelectedPiecesPossibleMoves = possibleMoves;
 
-            colorPossibleMoves(possibleMoves);
-            System.out.println(currentBoard[row][column]);
+                    colorPossibleMoves(possibleMoves);
+                    System.out.println(currentBoard[row][column]);
+                }
+            }
         }
-
-
-
-
-
-    }
-    public void updateBoard(String[][] board){
-
-
     }
 }
