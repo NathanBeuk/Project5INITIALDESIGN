@@ -68,7 +68,7 @@ public class BoardGui extends JFrame {
     }
     public void normalizeColors(){
         Color tan = new Color(210, 180, 140);//should be tan-ish
-        Color darkRed = new Color(139, 0 ,0);//should be dark red ish
+        Color darkRed = new Color(200, 0 ,0);//should be dark red ish
         Color white = Color.WHITE;
         Color black = Color.black;
         for (int i = 0; i < 8; i = i + 1){
@@ -101,8 +101,11 @@ public class BoardGui extends JFrame {
     }
 
     public void colorPossibleMoves(ArrayList<int[]> possibleMoves){//TODO not finished I think
+
+        Color color = new Color(255, 153, 0);
+
         for (int i = 0; i < possibleMoves.size(); i = i + 1){
-            buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(Color.BLUE);
+            buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(color);
         }
     }
     public void displayValue(int row, int column){
