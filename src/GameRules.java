@@ -53,19 +53,19 @@ public class GameRules {
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
         //TODO en passant later
-        if (currentBoard[row - 1][column].equals("")){//position directly infront is empty and therefore pawn can move
-            if (validPosition(row-1, column, currentBoard)){
+        if (validPosition(row-1, column, currentBoard)){//position directly infront is empty and therefore pawn can move
+            if (currentBoard[row - 1][column].equals("")){
                 possibleMoves.add(position(row-1,column));
             }
         }
-        if (enemy(currentBoard[row][column],currentBoard[row - 1][column - 1])){
-            if (validPosition(row-1, column - 1, currentBoard)){
+        if (validPosition(row-1, column - 1, currentBoard)){
+            if (enemy(currentBoard[row][column],currentBoard[row - 1][column - 1])){
                 possibleMoves.add(position(row - 1,column - 1));
             }
 
         }
-        if (enemy(currentBoard[row][column],currentBoard[row - 1][column + 1])){
-            if (validPosition(row-1, column + 1, currentBoard)){
+        if (validPosition(row - 1, column + 1, currentBoard)){
+            if (enemy(currentBoard[row][column],currentBoard[row - 1][column + 1])){
                 possibleMoves.add(position(row - 1,column + 1));
             }
 
