@@ -54,7 +54,6 @@ public class GameRules {
                     PAWNpossibleMoves.add(position(row - 1, column - 1));
                 }
             }
-
         }
         if (validPosition(row - 1, column + 1, currentBoard)) {
             if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
@@ -74,6 +73,7 @@ public class GameRules {
             if (validPosition(i, column, currentBoard)) {
                 if(!ally(currentBoard[row][column], currentBoard[i][column])) {
                     ROOKpossiblemoves.add(position(i, column));
+
                 }
                 if (enemy(currentBoard[row][column], currentBoard[i][column])) {
                     ROOKpossiblemoves.add(position(i, column));
@@ -84,8 +84,8 @@ public class GameRules {
         for (int j = currentBoard[0].length; j >= 0; j--) {
             if (validPosition(row, j, currentBoard)) {
                 if(!ally(currentBoard[row][column], currentBoard[row][j])) {
-
                     ROOKpossiblemoves.add(position(row, j));
+
 
                 }
                 if (enemy(currentBoard[row][column], currentBoard[row][j])) {
