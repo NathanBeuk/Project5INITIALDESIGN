@@ -43,18 +43,24 @@ public class GameRules {
         //TODO en passant later
         if (validPosition(row - 1, column, currentBoard)) {//position directly infront is empty and therefore pawn can move
             if (currentBoard[row - 1][column].equals("")) {
-                PAWNpossibleMoves.add(position(row - 1, column));
+                if(!ally(currentBoard[row][column], currentBoard[row -1][column])) {
+                    PAWNpossibleMoves.add(position(row - 1, column));
+                }
             }
         }
         if (validPosition(row - 1, column - 1, currentBoard)) {
             if (enemy(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
-                PAWNpossibleMoves.add(position(row - 1, column - 1));
+                if(!ally(currentBoard[row][column], currentBoard[row -1][column - 1])) {
+                    PAWNpossibleMoves.add(position(row - 1, column - 1));
+                }
             }
 
         }
         if (validPosition(row - 1, column + 1, currentBoard)) {
             if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
-                PAWNpossibleMoves.add(position(row - 1, column + 1));
+                if(!ally(currentBoard[row][column], currentBoard[row -1][column + 1])) {
+                    PAWNpossibleMoves.add(position(row - 1, column + 1));
+                }
             }
         }
         return PAWNpossibleMoves;
@@ -66,7 +72,9 @@ public class GameRules {
 
         for (int i = currentBoard.length; i >= 0; i--) {
             if (validPosition(i, column, currentBoard)) {
-                ROOKpossiblemoves.add(position(i, column));
+                if(!ally(currentBoard[row][column], currentBoard[i][column])) {
+                    ROOKpossiblemoves.add(position(i, column));
+                }
                 if (enemy(currentBoard[row][column], currentBoard[i][column])) {
                     ROOKpossiblemoves.add(position(i, column));
                     break;
@@ -75,7 +83,11 @@ public class GameRules {
         }
         for (int j = currentBoard[0].length; j >= 0; j--) {
             if (validPosition(row, j, currentBoard)) {
-                ROOKpossiblemoves.add(position(row, j));
+                if(!ally(currentBoard[row][column], currentBoard[row][j])) {
+
+                    ROOKpossiblemoves.add(position(row, j));
+
+                }
                 if (enemy(currentBoard[row][column], currentBoard[row][j])) {
                     ROOKpossiblemoves.add(position(row, j));
                     break;
@@ -90,28 +102,44 @@ public class GameRules {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
 
         if (validPosition(row - 2, column - 1, currentBoard)) {
-            HORSEpossibleMoves.add(position(row - 2, column - 1));
+            if(!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {
+                HORSEpossibleMoves.add(position(row - 2, column - 1));
+            }
         }
         if (validPosition(row - 2, column + 1, currentBoard)) {
-            HORSEpossibleMoves.add(position(row - 2, column + 1));
+            if(!ally(currentBoard[row][column], currentBoard[row - 2][column + 1])) {
+                HORSEpossibleMoves.add(position(row - 2, column + 1));
+            }
         }
         if (validPosition(row + 2, column - 1, currentBoard)) {
-            HORSEpossibleMoves.add(position(row + 2, column - 1));
+            if(!ally(currentBoard[row][column], currentBoard[row + 2][column -1])) {
+                HORSEpossibleMoves.add(position(row + 2, column - 1));
+            }
         }
-        if (validPosition(row - 2, column - 1, currentBoard)) {
-            HORSEpossibleMoves.add(position(row + 2, column + 1));
+        if (validPosition(row + 2, column + 1, currentBoard)) {
+            if(!ally(currentBoard[row][column], currentBoard[row + 2][column + 1])) {
+                HORSEpossibleMoves.add(position(row + 2, column + 1));
+            }
         }
         if (validPosition(row - 1, column - 2, currentBoard)) {
-            HORSEpossibleMoves.add(position(row - 1, column - 2));
+            if(!ally(currentBoard[row][column], currentBoard[row - 1][column - 2])) {
+                HORSEpossibleMoves.add(position(row - 1, column - 2));
+            }
         }
         if (validPosition(row - 1, column + 2, currentBoard)) {
-            HORSEpossibleMoves.add(position(row - 1, column + 2));
+            if(!ally(currentBoard[row][column], currentBoard[row - 1][column + 2])) {
+                HORSEpossibleMoves.add(position(row - 1, column + 2));
+            }
         }
         if (validPosition(row + 1, column - 2, currentBoard)) {
-            HORSEpossibleMoves.add(position(row + 1, column - 2));
+            if(!ally(currentBoard[row][column], currentBoard[row + 1][column - 2])) {
+                HORSEpossibleMoves.add(position(row + 1, column - 2));
+            }
         }
-        if (validPosition(row - 1, column - 2, currentBoard)) {
-            HORSEpossibleMoves.add(position(row + 1, column + 2));
+        if (validPosition(row + 1, column + 2, currentBoard)) {
+            if(!ally(currentBoard[row][column], currentBoard[row + 1][column + 2])) {
+                HORSEpossibleMoves.add(position(row + 1, column + 2));
+            }
         }
 
         return HORSEpossibleMoves;
@@ -157,34 +185,49 @@ public class GameRules {
         ArrayList<int[]> KINGpossibleMoves = new ArrayList<>();
 
         if (validPosition(row - 1, column - 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row - 1, column - 1));
+            if(!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
+                KINGpossibleMoves.add(position(row - 1, column - 1));
+            }
 
         }
         if (validPosition(row, column - 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row, column - 1));
+            if(!ally(currentBoard[row][column], currentBoard[row][column - 1])) {
+                KINGpossibleMoves.add(position(row, column - 1));
+            }
         }
         if (validPosition(row + 1, column - 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row + 1, column - 1));
+            if(!ally(currentBoard[row][column], currentBoard[row + 1][column - 1])) {
+                KINGpossibleMoves.add(position(row + 1, column - 1));
+            }
 
         }
         if (validPosition(row - 1, column, currentBoard)) {
-            KINGpossibleMoves.add(position(row - 1, column));
+            if(!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
+                KINGpossibleMoves.add(position(row - 1, column));
+            }
 
         }
         if (validPosition(row + 1, column, currentBoard)) {
-            KINGpossibleMoves.add(position(row + 1, column));
+            if(!ally(currentBoard[row][column], currentBoard[row + 1][column])) {
+                KINGpossibleMoves.add(position(row + 1, column));
+            }
 
         }
         if (validPosition(row - 1, column + 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row - 1, column + 1));
+            if(!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+                KINGpossibleMoves.add(position(row - 1, column + 1));
+            }
 
         }
         if (validPosition(row, column + 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row, column + 1));
+            if(!ally(currentBoard[row][column], currentBoard[row][column + 1])) {
+                KINGpossibleMoves.add(position(row, column + 1));
+            }
         }
         if (validPosition(row + 1, column + 1, currentBoard)) {
-            KINGpossibleMoves.add(position(row + 1, column + 1));
-
+            if(!ally(currentBoard[row][column], currentBoard[row + 1][column + 1])) {
+                KINGpossibleMoves.add(position(row + 1, column + 1));
+            }
         }
 
         return KINGpossibleMoves;
@@ -262,15 +305,14 @@ public class GameRules {
         return true;//is an enemy
     }
 
-    /*
-    public boolean friendly(String movingPiece, String possibleEnemy) {
-        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
-            return false;//not an enemy
+    public boolean ally(String movingPiece, String possibleAlly) {
+        if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+            return false; // not a friendly
         }
-        return true;//is an enemy
+        return true;//is an ally
     }
 
-     */
+
 
 
 
