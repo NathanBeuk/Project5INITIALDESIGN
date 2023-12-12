@@ -29,7 +29,15 @@ public class GameRules {
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
-                possibleMoves.addAll(bishopPossibleMoves(row, column, currentBoard));
+                possibleMoves.addAll(bishopPossibleMovesDR(row, column, currentBoard));
+                possibleMoves.addAll(bishopPossibleMovesDL(row, column ,currentBoard));
+                possibleMoves.addAll(bishopPossibleMovesUR(row, column ,currentBoard));
+                possibleMoves.addAll(bishopPossibleMovesUL(row, column, currentBoard));
+
+
+
+
+
             } else if (piece.charAt(0) == 'Q') {
                 possibleMoves.addAll(queenPossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'K') {
@@ -38,6 +46,56 @@ public class GameRules {
         }
         return possibleMoves;
     }
+
+
+    public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
+
+        //for every increment of both variables, you can set i = to either starting row index or column index
+        //this is effectively the same regardless of which you choose, because you just need a starting reference point.
+        //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
+
+        row = row + 1; column = column + 1;
+        for (int i = row; i < currentBoard.length; i++, column++) { // down right
+            BISHOPpossibleMovesDR.add(position(i ,column));
+        }
+
+        return BISHOPpossibleMovesDR;
+    }
+
+    public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
+
+        row = row - 1; column = column + 1;
+        for (int i = column; i < currentBoard[0].length; i++, row--) { // up right
+            BISHOPpossibleMovesUR.add(position(row ,i));
+        }
+
+        return BISHOPpossibleMovesUR;
+    }
+
+    public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
+        row = row + 1; column = column - 1;
+        for (int i = column; i > 0; i--, row++) { // down left
+            BISHOPpossibleMovesDL.add(position(row, i));
+        }
+
+        return BISHOPpossibleMovesDL;
+    }
+
+    public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesUL = new ArrayList<>();
+        row = row - 1; column = column - 1;
+        for (int i = column; i > 0; i--, row--) { //up left
+            BISHOPpossibleMovesUL.add(position(row ,i));
+        }
+
+        return BISHOPpossibleMovesUL;
+    }
+
+
+
 
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> PAWNpossibleMoves = new ArrayList<>();
@@ -318,47 +376,7 @@ public class GameRules {
         return KINGpossibleMoves;
     }
 
-    public ArrayList<int[]> bishopPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMoves = new ArrayList<>();
 
-        for (int i = row; i < currentBoard.length; ) { //right and down
-            for (int j = column; j < currentBoard[0].length; j++) {
-                if (validPosition(i, j, currentBoard)) {
-                    BISHOPpossibleMoves.add(position(i, j));
-                    i++;
-                }
-            }
-        }
-
-        for (int i = row; i > 0; ) { //right and up
-            for (int j = column; j < currentBoard[0].length; j++) {
-                if (validPosition(i, j, currentBoard)) {
-                    BISHOPpossibleMoves.add(position(i, j));
-                    i--;
-                }
-            }
-        }
-
-        for (int i = row; i < currentBoard.length; ) { // left and down
-            for (int j = column; j > 0; j--) {
-                if (validPosition(i, j, currentBoard)) {
-                    BISHOPpossibleMoves.add(position(i, j));
-                    i++;
-                }
-            }
-        }
-
-        for (int i = row; i > 0; ) { // left and up
-            for (int j = column; j > 0; j--) {
-                if (validPosition(i, j, currentBoard)) {
-                    BISHOPpossibleMoves.add(position(i, j));
-                    i--;
-                }
-            }
-        }
-
-        return BISHOPpossibleMoves;
-    }
 
 
     public boolean validPosition(int row, int column, String[][] board) {
