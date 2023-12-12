@@ -134,12 +134,9 @@ public class BoardGui extends JFrame {
             currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved
             setBoardText();//changes the text on the frame
 
-
-        }
-        else {
+        } else {
             lastSelectedPosition[0] = row;
             lastSelectedPosition[1] = column;
-
 
             buttons[row][column].setBackground(Color.cyan);
             String lastPiece = currentBoard[row][column];

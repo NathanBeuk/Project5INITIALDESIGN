@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  * Description
@@ -43,21 +44,21 @@ public class GameRules {
         //TODO en passant later
         if (validPosition(row - 1, column, currentBoard)) {//position directly infront is empty and therefore pawn can move
             if (currentBoard[row - 1][column].equals("")) {
-                if(!ally(currentBoard[row][column], currentBoard[row -1][column])) {
+                if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
                     PAWNpossibleMoves.add(position(row - 1, column));
                 }
             }
         }
         if (validPosition(row - 1, column - 1, currentBoard)) {
             if (enemy(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
-                if(!ally(currentBoard[row][column], currentBoard[row -1][column - 1])) {
+                if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
                     PAWNpossibleMoves.add(position(row - 1, column - 1));
                 }
             }
         }
         if (validPosition(row - 1, column + 1, currentBoard)) {
             if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
-                if(!ally(currentBoard[row][column], currentBoard[row -1][column + 1])) {
+                if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
                     PAWNpossibleMoves.add(position(row - 1, column + 1));
                 }
             }
@@ -69,31 +70,58 @@ public class GameRules {
     public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> ROOKpossiblemoves = new ArrayList<>();
 
-        for (int i = currentBoard.length; i >= 0; i--) {
+        for (int i = row - 1; i >= 0; i--) { //up
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                ROOKpossiblemoves.add(position(i, column));
+                break;
+            }
             if (validPosition(i, column, currentBoard)) {
-                if(!ally(currentBoard[row][column], currentBoard[i][column])) {
-                    ROOKpossiblemoves.add(position(i, column));
-
-                }
-                if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                    ROOKpossiblemoves.add(position(i, column));
-                    break;
-                }
+                ROOKpossiblemoves.add(position(i, column));
             }
         }
-        for (int j = currentBoard[0].length; j >= 0; j--) {
-            if (validPosition(row, j, currentBoard)) {
-                if(!ally(currentBoard[row][column], currentBoard[row][j])) {
-                    ROOKpossiblemoves.add(position(row, j));
 
-
-                }
-                if (enemy(currentBoard[row][column], currentBoard[row][j])) {
-                    ROOKpossiblemoves.add(position(row, j));
-                    break;
-                }
+        for (int i = column - 1; i > 0; i--) { // left
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                ROOKpossiblemoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                ROOKpossiblemoves.add(position(row, i));
             }
         }
+
+        for (int i = row + 1; i < currentBoard.length; i++) { //down
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                ROOKpossiblemoves.add(position(i, column));
+                break;
+            }
+            if (validPosition(i, column, currentBoard)) {
+                ROOKpossiblemoves.add(position(i, column));
+            }
+        }
+
+        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                ROOKpossiblemoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                ROOKpossiblemoves.add(position(row, i));
+            }
+        }
+
         return ROOKpossiblemoves;
     }
 
@@ -102,42 +130,42 @@ public class GameRules {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
 
         if (validPosition(row - 2, column - 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {
                 HORSEpossibleMoves.add(position(row - 2, column - 1));
             }
         }
         if (validPosition(row - 2, column + 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 2][column + 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 2][column + 1])) {
                 HORSEpossibleMoves.add(position(row - 2, column + 1));
             }
         }
         if (validPosition(row + 2, column - 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 2][column -1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 2][column - 1])) {
                 HORSEpossibleMoves.add(position(row + 2, column - 1));
             }
         }
         if (validPosition(row + 2, column + 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 2][column + 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 2][column + 1])) {
                 HORSEpossibleMoves.add(position(row + 2, column + 1));
             }
         }
         if (validPosition(row - 1, column - 2, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 1][column - 2])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 2])) {
                 HORSEpossibleMoves.add(position(row - 1, column - 2));
             }
         }
         if (validPosition(row - 1, column + 2, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 1][column + 2])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 2])) {
                 HORSEpossibleMoves.add(position(row - 1, column + 2));
             }
         }
         if (validPosition(row + 1, column - 2, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 1][column - 2])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column - 2])) {
                 HORSEpossibleMoves.add(position(row + 1, column - 2));
             }
         }
         if (validPosition(row + 1, column + 2, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 1][column + 2])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column + 2])) {
                 HORSEpossibleMoves.add(position(row + 1, column + 2));
             }
         }
@@ -149,32 +177,95 @@ public class GameRules {
         ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
 
         // VERTICAL and HORIZONTAL movement
-        for (int i = currentBoard.length; i >= 0; i--) {
+        for (int i = row - 1; i >= 0; i--) { //up
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                QUEENpossibleMoves.add(position(i, column));
+                break;
+            }
             if (validPosition(i, column, currentBoard)) {
                 QUEENpossibleMoves.add(position(i, column));
-                if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                    QUEENpossibleMoves.add(position(i, column));
-                    break;
-                }
             }
         }
-        for (int j = currentBoard[0].length; j >= 0; j--) {
-            if (validPosition(row, j, currentBoard)) {
-                QUEENpossibleMoves.add(position(row, j));
-                if (enemy(currentBoard[row][column], currentBoard[row][j])) {
-                    QUEENpossibleMoves.add(position(row, j));
-                    break;
-                }
+
+        for (int i = column - 1; i > 0; i--) { // left
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMoves.add(position(row, i));
+            }
+        }
+
+        for (int i = row + 1; i < currentBoard.length; i++) { //down
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                QUEENpossibleMoves.add(position(i, column));
+                break;
+            }
+            if (validPosition(i, column, currentBoard)) {
+                QUEENpossibleMoves.add(position(i, column));
+            }
+        }
+
+        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMoves.add(position(row, i));
             }
         }
 
         //DIAGONAL movement
-        for (int i = row; i < currentBoard.length; ) {
+        for (int i = row; i < currentBoard.length; ) { //right and down
             for (int j = column; j < currentBoard[0].length; j++) {
-                QUEENpossibleMoves.add(position(i, j));
-                i++;
+                if (validPosition(i, j, currentBoard)) {
+                    QUEENpossibleMoves.add(position(i, j));
+                    i++;
+                }
             }
         }
+
+        for (int i = row; i > 0; ) { //right and up
+            for (int j = column; j < currentBoard[0].length; j++) {
+                if (validPosition(i, j, currentBoard)) {
+                    QUEENpossibleMoves.add(position(i, j));
+                    i--;
+                }
+            }
+        }
+
+        for (int i = row; i < currentBoard.length; ) { // left and down
+            for (int j = column; j > 0; j--) {
+                if (validPosition(i, j, currentBoard)) {
+                    QUEENpossibleMoves.add(position(i, j));
+                    i++;
+                }
+            }
+        }
+
+        for (int i = row; i > 0; ) { // left and up
+            for (int j = column; j > 0; j--) {
+                if (validPosition(i, j, currentBoard)) {
+                    QUEENpossibleMoves.add(position(i, j));
+                    i--;
+                }
+            }
+        }
+
 
 
         return QUEENpossibleMoves;
@@ -185,60 +276,54 @@ public class GameRules {
         ArrayList<int[]> KINGpossibleMoves = new ArrayList<>();
 
         if (validPosition(row - 1, column - 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
                 KINGpossibleMoves.add(position(row - 1, column - 1));
             }
-
         }
         if (validPosition(row, column - 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row][column - 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row][column - 1])) {
                 KINGpossibleMoves.add(position(row, column - 1));
             }
         }
         if (validPosition(row + 1, column - 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 1][column - 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column - 1])) {
                 KINGpossibleMoves.add(position(row + 1, column - 1));
             }
-
         }
         if (validPosition(row - 1, column, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
                 KINGpossibleMoves.add(position(row - 1, column));
             }
-
         }
         if (validPosition(row + 1, column, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 1][column])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column])) {
                 KINGpossibleMoves.add(position(row + 1, column));
             }
-
         }
         if (validPosition(row - 1, column + 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
                 KINGpossibleMoves.add(position(row - 1, column + 1));
             }
-
         }
         if (validPosition(row, column + 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row][column + 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row][column + 1])) {
                 KINGpossibleMoves.add(position(row, column + 1));
             }
         }
         if (validPosition(row + 1, column + 1, currentBoard)) {
-            if(!ally(currentBoard[row][column], currentBoard[row + 1][column + 1])) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column + 1])) {
                 KINGpossibleMoves.add(position(row + 1, column + 1));
             }
         }
-
         return KINGpossibleMoves;
     }
 
     public ArrayList<int[]> bishopPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMoves = new ArrayList<>();
 
-        for (int i = row; i < currentBoard.length - row; ) { //right and down
+        for (int i = row; i < currentBoard.length; ) { //right and down
             for (int j = column; j < currentBoard[0].length; j++) {
-                if(validPosition(i, j, currentBoard)) {
+                if (validPosition(i, j, currentBoard)) {
                     BISHOPpossibleMoves.add(position(i, j));
                     i++;
                 }
@@ -247,7 +332,7 @@ public class GameRules {
 
         for (int i = row; i > 0; ) { //right and up
             for (int j = column; j < currentBoard[0].length; j++) {
-                if(validPosition(i, j, currentBoard)) {
+                if (validPosition(i, j, currentBoard)) {
                     BISHOPpossibleMoves.add(position(i, j));
                     i--;
                 }
@@ -256,7 +341,7 @@ public class GameRules {
 
         for (int i = row; i < currentBoard.length; ) { // left and down
             for (int j = column; j > 0; j--) {
-                if(validPosition(i, j, currentBoard)) {
+                if (validPosition(i, j, currentBoard)) {
                     BISHOPpossibleMoves.add(position(i, j));
                     i++;
                 }
@@ -265,7 +350,7 @@ public class GameRules {
 
         for (int i = row; i > 0; ) { // left and up
             for (int j = column; j > 0; j--) {
-                if(validPosition(i, j, currentBoard)) {
+                if (validPosition(i, j, currentBoard)) {
                     BISHOPpossibleMoves.add(position(i, j));
                     i--;
                 }
@@ -291,7 +376,7 @@ public class GameRules {
     /*
         //TODO Changed this
         public boolean enemy(String movingPiece, String possibleEnemy){
-            if(!possibleEnemy.isEmpty() && (movingPiece.charAt(2) != possibleEnemy.charAt(2))){
+            if(!possibleEnemy.isEmpty() && (movingPiece.charAt(2) == possibleEnemy.charAt(2))){
                 return true;
             }
             return false;
@@ -313,10 +398,6 @@ public class GameRules {
     }
 
 
-
-
-
-
     public int[] position(int row, int column) {
         int[] pos = {row, column};
         return pos;
@@ -334,7 +415,7 @@ public class GameRules {
         return possibleMoves;
     }
 
-    public String[][] flipBoard(String[][] board) {//will be useful to simplyfy operations
+    public String[][] flipBoard(String[][] board) {//will be useful to simplify operations
         int rows = board.length;
         int columns = board[0].length;
 
