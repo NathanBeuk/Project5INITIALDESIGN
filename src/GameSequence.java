@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 /**
- * Description
+ * This is the class that has the function of rewinding and fast-forwarding through the played game thus far.
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
@@ -24,15 +24,18 @@ public class GameSequence {
         presentBoard = deepCopy(startingBoard);
     }
 
-    public void move(String[][] newBoard) {
 
+    /**
+     * @param newBoard a representation of the game board after a move is made
+     * @return moves the presentBoard onto the pastBoards stack, to leave room for the next presentBoard.
+     * Clears the stack of futureBoards after a move is made, since that future is no longer playable
+     */
+    public void move(String[][] newBoard) {
         pastBoards.push(presentBoard);
         presentBoard = deepCopy(newBoard);
         if (futureBoards.size() > 0) {
             futureBoards.clear();
         }
-
-
     }
 
     /**
@@ -47,7 +50,6 @@ public class GameSequence {
             for (int j = 0; j < board[0].length; j++) {
                 String string = board[i][j];
                 copy[i][j] = string + "";
-
             }
         }
         return copy;
@@ -57,7 +59,6 @@ public class GameSequence {
      * @return returns a boards at a certain index (number of moves since beginning of game).
      * Takes most recent move from play and puts it onto a rewound moves stack.
      */
-
     public String[][] gameRewind() {
         if (pastBoards.size() != 0) {
             futureBoards.push(presentBoard);
@@ -65,8 +66,6 @@ public class GameSequence {
         }
         return deepCopy(presentBoard);
     }
-
-
 
     /**
      * @return returns a boards at a certain index (number of moves since beginning of game).
@@ -77,7 +76,6 @@ public class GameSequence {
             pastBoards.push(presentBoard);
             presentBoard = deepCopy(futureBoards.pop());
         }
-
         return deepCopy(presentBoard);
     }
 }

@@ -1,12 +1,11 @@
 /**
- * Description
+ * This is the String representation of the starting board. This will be passed to the Board class
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
  * Reference: https://stackoverflow.com/questions/284899/how-do-you-add-an-actionlistener-onto-a-jbutton-in-java
  */
 public class Game {
-
     /**
      * main method
      * @param args
@@ -17,14 +16,11 @@ public class Game {
                 {"backward", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0", "P_B0","P_B0"},
                 {""        , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
                 {""        , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
-                {""        , ""    , ""    , ""    , "B_W0"    , ""    , ""    , ""    , ""   },
+                {""        , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
                 {""        , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
                 {""        , "P_W0", "P_W0", "P_W0", "P_W0", "P_W0", "P_W0", "P_W0","P_W0"},
                 {"end"     , "R_W0", "H_W0", "B_W0", "Q_W0", "K_W0", "B_W0", "H_W0","R_W0"},
         };
         new Board(starterBoard);
-
-
-
     }
 }

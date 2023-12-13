@@ -6,15 +6,11 @@ import java.util.ArrayList;
 
 public class Board extends JFrame {
     private String[][] currentBoard;
-
     private JButton[][] buttons;
-
     private ArrayList<int[]> lastSelectedPiecesPossibleMoves;
     private int[] lastSelectedPosition;
-
     private GameRules gameRules;
     private GameSequence gameSequence;
-
     private char team;
 
 
@@ -27,7 +23,6 @@ public class Board extends JFrame {
         gameRules = new GameRules();
         gameSequence = new GameSequence(board);
         team = 'W';
-
 
         //following lines of code are possible because it extends the JFrame class, meaning we don't have to call new JFrame (since this is a JFrame)
         setTitle("Chess");//just sets the title of the JFrame
@@ -56,6 +51,9 @@ public class Board extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Sets the board to correctly display the input of the starterBoard
+     */
     public void setBoardText() {
         for (int i = 0; i < 8; i = i + 1) {
             for (int j = 0; j < 9; j = j + 1) {//9 columns for commands lines
@@ -66,6 +64,9 @@ public class Board extends JFrame {
         }
     }
 
+    /**
+     * Sets the board to correct chessboard colors. Command line is left white
+     */
     public void normalizeColors() {
         Color tan = new Color(210, 180, 140);//should be tan-ish
         Color darkRed = new Color(200, 0, 0);//should be dark red ish
@@ -73,7 +74,7 @@ public class Board extends JFrame {
         Color black = Color.black;
         for (int i = 0; i < 8; i = i + 1) {
             for (int j = 0; j < 9; j = j + 1) {//9 columns for commands lines
-                if (j == 0) {
+                if (j == 0) { //sets command line color
                     buttons[i][j].setBackground(white);
                 } else if ((i + j - 1) % 2 == 0) {//if the index is a magnitude of 0 or an even number the thing is tan
                     buttons[i][j].setBackground(tan);
@@ -98,6 +99,10 @@ public class Board extends JFrame {
         return false;
     }
 
+    /**
+     * @param possibleMoves ArrayList of possible moves for a selected piece
+     * @return colors each possible move for selection by the user
+     */
     public void colorPossibleMoves(ArrayList<int[]> possibleMoves) {//TODO not finished I think
 
         Color color = new Color(255, 153, 0);
@@ -107,6 +112,9 @@ public class Board extends JFrame {
         }
     }
 
+    /**
+     * Swaps team after each move that is made
+     */
     public void teamSwap() {
         if (team == 'W') {
             team = 'B';
@@ -115,6 +123,12 @@ public class Board extends JFrame {
         }
     }
 
+
+    /**
+     * @param row    row index of the button that is pressed
+     * @param column column index of the button that is pressed
+     * @return chooses the correct action to take based off of the state of the button selected
+     */
     public void buttonPressed(int row, int column) {
         if (column == 0) {//fires if pressed a command button so no rules need be referenced
             if (row == 0) {
@@ -154,8 +168,8 @@ public class Board extends JFrame {
                 currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
 
 
-                if (!pieceCaptured.equals("")){
-                    if (pieceCaptured.charAt(0) == 'K'){
+                if (!pieceCaptured.equals("")) {
+                    if (pieceCaptured.charAt(0) == 'K') {
                         System.out.println("Team " + team + " has won the game!!!!");
                         System.out.println("Thank you for playing");
                         System.exit(0);

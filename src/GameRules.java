@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * This class holds all code for piece function for the chess game. Every piece's possible moves are recorded here, and given to
+ * This class holds all code for piece function for the chess game. Every piece's possible moves are recorded here, and given to the board class.
+ * Pieces are stored in terms of their location on the board, and their reference to their location relative to other pieces dictate their ability to move.
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
@@ -15,12 +16,10 @@ public class GameRules {
 
     }
 
-
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
-     * @param currentBoard , takes current board
+     * @param row, row of selected position
+     * @param column, column of selected position
+     * @param currentBoard, takes current board
      * @return all possible moves for a piece that is selected, arrayList is empty if position has no possible moves
      */
     public ArrayList<int[]> getPossibleMoves(int row, int column, String[][] currentBoard) {
@@ -56,8 +55,7 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row index of row location on board for potential piece change
+     * @param row   index of row location on board for potential piece change
      * @param piece that is being changed (pawn).
      * @return a boolean on whether a pawn should be promoted to a queen
      */
@@ -69,9 +67,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row index of row location on board
-     * @param column index of column location on board
+     * @param row          index of row location on board
+     * @param column       index of column location on board
      * @param currentBoard the current state of the game board
      * @return a boolean on whether a position is an empty tile
      */
@@ -82,8 +79,7 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param movingPiece piece that is being used
+     * @param movingPiece   piece that is being used
      * @param possibleEnemy returns true if is an enemy
      * @return a boolean on whether the piece on a tile is an enemy
      */
@@ -95,8 +91,7 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param movingPiece piece that is being used
+     * @param movingPiece  piece that is being used
      * @param possibleAlly returns true if is an ally
      * @return a boolean on whether a piece is an ally, redundant right now should be removed eventually
      */
@@ -108,10 +103,9 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row index of row location on board
+     * @param row    index of row location on board
      * @param column index of column location on board
-     * @param board representation of the game board
+     * @param board  representation of the game board
      * @return a boolean on whether a row and column is a valid position on the board
      */
     public boolean validPosition(int row, int column, String[][] board) {
@@ -126,8 +120,7 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row index of row location on board
+     * @param row    index of row location on board
      * @param column index of column location on board
      * @return a two element array for a given row and column
      */
@@ -137,9 +130,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a pawn at a given location on the chess board.
      * Includes possible enemies to take, and excludes allied occupied squares. Two forward squares are available for the pawns first move.
@@ -172,7 +164,7 @@ public class GameRules {
         }
         if (Integer.parseInt(currentBoard[row][column].substring(3)) == 0) {
             if (validPosition(row - 2, column, currentBoard)) {
-                if(directlyInFront){
+                if (directlyInFront) {
                     if (isEmptyTile(row - 2, column, currentBoard)) {
                         PAWNpossibleMoves.add(position(row - 2, column));
                     }
@@ -184,9 +176,8 @@ public class GameRules {
 
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/right diagonal.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -215,9 +206,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/right diagonal.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -246,9 +236,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/left diagonal.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -277,9 +266,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/left diagonal.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -307,11 +295,9 @@ public class GameRules {
         return BISHOPpossiblemovesUL;
     }
 
-
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -373,11 +359,9 @@ public class GameRules {
         return ROOKpossiblemoves;
     }
 
-
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the row and column visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -442,9 +426,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/right diagonal visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -473,9 +456,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/right diagonal visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -504,9 +486,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/left diagonal visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -534,9 +515,8 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/left diagonal visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -563,11 +543,9 @@ public class GameRules {
         return QUEENpossibleMovesUL;
     }
 
-
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for the King at a given location on the chess board for the possible moves that are visible to the King.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -620,12 +598,9 @@ public class GameRules {
         return KINGpossibleMoves;
     }
 
-
-
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
+     * @param row          , row of selected position
+     * @param column       , column of selected position
      * @param currentBoard , takes current board
      * @return returns an ArrayList of the possible moves for a Knight at a given location on the chess board for possible moves that are visible to the Knight.
      * Includes possible enemies to take, and excludes allied occupied squares.
@@ -674,13 +649,10 @@ public class GameRules {
                 HORSEpossibleMoves.add(position(row + 1, column + 2));
             }
         }
-
         return HORSEpossibleMoves;
     }
 
-
     /**
-     *
      * @param board , 2D array of the gameboard
      * @return returns the flipped board so that the game is playable from both white and black. The board flips after each move that is made.
      * A flip does not alter row and column locations.
