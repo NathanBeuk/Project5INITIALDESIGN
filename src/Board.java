@@ -119,12 +119,14 @@ public class Board extends JFrame {
         if (column == 0){//fires if pressed a command button so no rules need be referenced
             if (row == 0){
                 //forward
+                teamSwap();
                 currentBoard = gameSequence.gameForward();
                 setBoardText();//changes the text on the buttons in frame so can see change
 
             }
             else if (row == 1){
                 //backward
+                teamSwap();
                 currentBoard = gameSequence.gameRewind();
                 setBoardText();//changes the text on the buttons in frame so can see change
 
