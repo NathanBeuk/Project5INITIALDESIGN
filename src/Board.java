@@ -117,7 +117,12 @@ public class Board extends JFrame {
     }
     public void buttonPressed(int row, int column){
         if (column == 0){//fires if pressed a command button so no rules need be referenced
-
+            if ( row == 0){
+                //forward
+            }
+            else if (row == 1){
+                //backward
+            }
         }
         else {//fires if selected a board tile
             boolean pieceShouldMove = shouldPieceMove(row, column, lastSelectedPiecesPossibleMoves, lastSelectedPosition);
@@ -139,6 +144,7 @@ public class Board extends JFrame {
 
                 setBoardText();//changes the text on the buttons in frame so can see change
 
+                gameSequence.move(currentBoard);
             } else {
                 lastSelectedPosition[0] = row;
                 lastSelectedPosition[1] = column;
