@@ -117,7 +117,7 @@ public class Board extends JFrame {
     }
     public void buttonPressed(int row, int column){
         if (column == 0){//fires if pressed a command button so no rules need be referenced
-            if ( row == 0){
+            if (row == 0){
                 //forward
                 currentBoard = gameSequence.gameForward();
                 setBoardText();//changes the text on the buttons in frame so can see change
