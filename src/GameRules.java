@@ -40,6 +40,13 @@ public class GameRules {
 
             } else if (piece.charAt(0) == 'Q') {
                 possibleMoves.addAll(queenPossibleMoves(row, column, currentBoard));
+
+                possibleMoves.addAll(queenPossibleMovesDR(row, column, currentBoard));
+                possibleMoves.addAll(queenPossibleMovesDL(row, column ,currentBoard));
+                possibleMoves.addAll(queenPossibleMovesUR(row, column ,currentBoard));
+                possibleMoves.addAll(queenPossibleMovesUL(row, column, currentBoard));
+
+
             } else if (piece.charAt(0) == 'K') {
                 possibleMoves.addAll(kingPossibleMoves(row, column, currentBoard));
             }
@@ -56,8 +63,23 @@ public class GameRules {
         //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
 
         row = row + 1; column = column + 1;
-        for (int i = row; i < currentBoard.length; i++, column++) { // down right
-            BISHOPpossibleMovesDR.add(position(i ,column));
+        for (int i = column; i < currentBoard.length; i++ ) { // down right
+
+            BISHOPpossibleMovesDR.add(position(row, i));
+            row++;
+            /*
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                BISHOPpossibleMovesDR.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                BISHOPpossibleMovesDR.add(position(row, i));
+            }
+
+             */
         }
 
         return BISHOPpossibleMovesDR;
@@ -67,8 +89,22 @@ public class GameRules {
         ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
 
         row = row - 1; column = column + 1;
-        for (int i = column; i < currentBoard[0].length; i++, row--) { // up right
-            BISHOPpossibleMovesUR.add(position(row ,i));
+        for (int i = column; i < currentBoard[0].length; i++ ) { // up right
+            BISHOPpossibleMovesUR.add(position(row, i));
+            row--;
+            /*
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                BISHOPpossibleMovesUR.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                BISHOPpossibleMovesUR.add(position(row, i));
+            }
+
+             */
         }
 
         return BISHOPpossibleMovesUR;
@@ -77,8 +113,22 @@ public class GameRules {
     public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
         row = row + 1; column = column - 1;
-        for (int i = column; i > 0; i--, row++) { // down left
+        for (int i = column; i > 0; i--) { // down left
             BISHOPpossibleMovesDL.add(position(row, i));
+            row++;
+            /*
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                BISHOPpossibleMovesDL.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                BISHOPpossibleMovesDL.add(position(row, i));
+            }
+
+             */
         }
 
         return BISHOPpossibleMovesDL;
@@ -87,12 +137,140 @@ public class GameRules {
     public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMovesUL = new ArrayList<>();
         row = row - 1; column = column - 1;
-        for (int i = column; i > 0; i--, row--) { //up left
-            BISHOPpossibleMovesUL.add(position(row ,i));
+        for (int i = column; i > 0; i--) { //up left
+            BISHOPpossibleMovesUL.add(position(row, i));
+            row--;
+
+            /*
+
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                BISHOPpossibleMovesUL.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                BISHOPpossibleMovesUL.add(position(row, i));
+            }
+
+             */
         }
 
         return BISHOPpossibleMovesUL;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
+
+        //for every increment of both variables, you can set i = to either starting row index or column index
+        //this is effectively the same regardless of which you choose, because you just need a starting reference point.
+        //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
+
+        row = row + 1; column = column + 1;
+        for (int i = column; i < currentBoard.length; i++, row++) { // down right
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMovesDR.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMovesDR.add(position(row, i));
+            }
+        }
+
+        return QUEENpossibleMovesDR;
+    }
+
+    public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
+
+        row = row - 1; column = column + 1;
+        for (int i = column; i < currentBoard[0].length; i++, row--) { // up right
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMovesUR.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMovesUR.add(position(row, i));
+            }
+        }
+
+        return QUEENpossibleMovesUR;
+    }
+
+    public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
+        row = row + 1; column = column - 1;
+        for (int i = column; i > 0; i--, row++) { // down left
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMovesDL.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMovesDL.add(position(row, i));
+            }
+        }
+
+        return QUEENpossibleMovesDL;
+    }
+
+    public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
+        row = row - 1; column = column - 1;
+        for (int i = column; i > 0; i--, row--) { //up left
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                QUEENpossibleMovesUL.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {
+                QUEENpossibleMovesUL.add(position(row, i));
+            }
+        }
+
+        return QUEENpossibleMovesUL;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,6 +301,13 @@ public class GameRules {
         }
         return PAWNpossibleMoves;
     }
+
+
+
+
+
+
+
 
 
     public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard) {
@@ -183,6 +368,19 @@ public class GameRules {
         return ROOKpossiblemoves;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     //hardcoded moves for knight since there's only a max number of 8, and it is less dynamic
     public ArrayList<int[]> horsePossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
@@ -230,6 +428,19 @@ public class GameRules {
 
         return HORSEpossibleMoves;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public ArrayList<int[]> queenPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
@@ -287,47 +498,53 @@ public class GameRules {
             }
         }
 
-        //DIAGONAL movement
-        for (int i = row; i < currentBoard.length; ) { //right and down
-            for (int j = column; j < currentBoard[0].length; j++) {
-                if (validPosition(i, j, currentBoard)) {
-                    QUEENpossibleMoves.add(position(i, j));
-                    i++;
-                }
-            }
-        }
-
-        for (int i = row; i > 0; ) { //right and up
-            for (int j = column; j < currentBoard[0].length; j++) {
-                if (validPosition(i, j, currentBoard)) {
-                    QUEENpossibleMoves.add(position(i, j));
-                    i--;
-                }
-            }
-        }
-
-        for (int i = row; i < currentBoard.length; ) { // left and down
-            for (int j = column; j > 0; j--) {
-                if (validPosition(i, j, currentBoard)) {
-                    QUEENpossibleMoves.add(position(i, j));
-                    i++;
-                }
-            }
-        }
-
-        for (int i = row; i > 0; ) { // left and up
-            for (int j = column; j > 0; j--) {
-                if (validPosition(i, j, currentBoard)) {
-                    QUEENpossibleMoves.add(position(i, j));
-                    i--;
-                }
-            }
-        }
-
-
-
         return QUEENpossibleMoves;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //hardcoded moves for king as well since only max of 8, and less dynamic
     public ArrayList<int[]> kingPossibleMoves(int row, int column, String[][] currentBoard) {

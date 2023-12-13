@@ -12,14 +12,14 @@ public class Game {
      */
     public static void main(String[] args) {
         String[][] starterBoard = {// R = rook, H = horse(knight), B = Bishop, Q = queen, K = king, P = pawn, first column will just be command lines
-                {"forward" , "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0","B_W0"},
-                {"backward", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0","B_W0"},
-                {"*****"   , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"   },
-                {"*****"   , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"   },
-                {"*****",    "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"   },
-                {"*****",    "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"    , "B_W0"   },
-                {"*****"   , "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0","B_W0"},
-                {"end"     , "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0", "B_W0","B_W0"},
+                {"forward" , "", "", "", "", "", "", "",""},
+                {"backward", "", "", "", "", "", "", "",""},
+                {"*****"   , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"*****"   , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
+                {"*****",    ""    , ""    , "B_W0"    , "B_W0"    , ""    , ""    , ""    , ""   },
+                {"Ai maybe", ""    , ""    , "B_B0"    , "B_B0"    , ""    , ""    , ""    , ""   },
+                {"p-taken" , "", "", "", "", "", "", "",""},
+                {"end"     , "", "", "", "", "", "", "",""},
         };
         new BoardGui(starterBoard);
 
