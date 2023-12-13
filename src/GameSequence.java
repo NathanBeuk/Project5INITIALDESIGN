@@ -54,9 +54,9 @@ public class GameSequence {
     public String[][] gameRewind(){
         if (pastBoards.size() != 0){
             futureBoards.push(presentBoard);
-            presentBoard = pastBoards.pop();
+            presentBoard = deepCopy(pastBoards.pop());
         }
-        return presentBoard;
+        return deepCopy(presentBoard);
     }
 
 
@@ -64,9 +64,9 @@ public class GameSequence {
     public String[][] gameForward(){
         if (futureBoards.size() != 0) {
             pastBoards.push(presentBoard);
-            presentBoard = futureBoards.pop();
+            presentBoard = deepCopy(futureBoards.pop());
         }
 
-        return presentBoard;
+        return deepCopy(presentBoard);
     }
 }
