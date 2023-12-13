@@ -55,110 +55,161 @@ public class GameRules {
     }
 
 
+    public boolean isEmptyTile(int row, int column, String[][] currentBoard){
+        if (currentBoard[row][column].equals(""))
+            return true;
+        return false;
+    }
+    public boolean enemy(String movingPiece, String possibleEnemy) {
+        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+            return false;//not an enemy
+        }
+        return true;//is an enemy
+    }
+
+    public boolean ally(String movingPiece, String possibleAlly) {
+        if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+            return false; // not a friendly
+        }
+        return true;//is an ally
+    }
+    public boolean validPosition(int row, int column, String[][] board) {
+        int numRows = board.length;
+        int numColumns = board[0].length;
+        if (row >= 0 && row < numRows) {
+            if (column > 0 && column < numColumns) {//columns are nine across so valid moves can't be equal to zero (command lines)
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    public int[] position(int row, int column) {
+        int[] pos = {row, column};
+        return pos;
+    }
     public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
 
         //for every increment of both variables, you can set i = to either starting row index or column index
         //this is effectively the same regardless of which you choose, because you just need a starting reference point.
         //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
 
-        row = row + 1; column = column + 1;
-        for (int i = column; i < currentBoard.length; i++ ) { // down right
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row + i, column + i, currentBoard)){
+                if (isEmptyTile(row + i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
+                    possibleMoves.add(position(row + i, column + i));
+                    if(enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
+                        condition = false;
+                    }
 
-            BISHOPpossibleMovesDR.add(position(row, i));
-            row++;
-            /*
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                BISHOPpossibleMovesDR.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                BISHOPpossibleMovesDR.add(position(row, i));
+            else {
+                condition = false;
             }
 
-             */
+
+            i = i + 1;
         }
 
-        return BISHOPpossibleMovesDR;
+        return possibleMoves;
     }
 
     public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
 
-        row = row - 1; column = column + 1;
-        for (int i = column; i < currentBoard[0].length; i++ ) { // up right
-            BISHOPpossibleMovesUR.add(position(row, i));
-            row--;
-            /*
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row - i, column + i, currentBoard)){
+                if (isEmptyTile(row - i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
+                    possibleMoves.add(position(row - i, column + i));
+                    if(enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
+                        condition = false;
+                    }
+
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                BISHOPpossibleMovesUR.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                BISHOPpossibleMovesUR.add(position(row, i));
+            else {
+                condition = false;
             }
 
-             */
+
+            i = i + 1;
         }
 
-        return BISHOPpossibleMovesUR;
+        return possibleMoves;
+
+
     }
 
     public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
-        row = row + 1; column = column - 1;
-        for (int i = column; i > 0; i--) { // down left
-            BISHOPpossibleMovesDL.add(position(row, i));
-            row++;
-            /*
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row + i, column - i, currentBoard)){
+                if (isEmptyTile(row + i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
+                    possibleMoves.add(position(row + i, column - i));
+                    if(enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
+                        condition = false;
+                    }
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                BISHOPpossibleMovesDL.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                BISHOPpossibleMovesDL.add(position(row, i));
+            else {
+                condition = false;
             }
 
-             */
+
+            i = i + 1;
         }
 
-        return BISHOPpossibleMovesDL;
+        return possibleMoves;
 
     }
 
     public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesUL = new ArrayList<>();
-        row = row - 1; column = column - 1;
-        for (int i = column; i > 0; i--) { //up left
-            BISHOPpossibleMovesUL.add(position(row, i));
-            row--;
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
 
-            /*
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row - i, column - i, currentBoard)){
+                if (isEmptyTile(row - i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
+                    possibleMoves.add(position(row - i, column - i));
+                    if(enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
+                        condition = false;
+                    }
 
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                BISHOPpossibleMovesUL.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                BISHOPpossibleMovesUL.add(position(row, i));
+            else {
+                condition = false;
             }
 
-             */
+
+            i = i + 1;
         }
 
-        return BISHOPpossibleMovesUL;
+        return possibleMoves;
     }
 
 
@@ -597,17 +648,6 @@ public class GameRules {
 
 
 
-    public boolean validPosition(int row, int column, String[][] board) {
-        int numRows = board.length;
-        int numColumns = board[0].length;
-        if (row >= 0 && row < numRows) {
-            if (column > 0 && column < numColumns) {//columns are nine across so valid moves can't be equal to zero (command lines)
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /*
         //TODO Changed this
@@ -619,25 +659,6 @@ public class GameRules {
         }
 
      */
-    public boolean enemy(String movingPiece, String possibleEnemy) {
-        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
-            return false;//not an enemy
-        }
-        return true;//is an enemy
-    }
-
-    public boolean ally(String movingPiece, String possibleAlly) {
-        if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
-            return false; // not a friendly
-        }
-        return true;//is an ally
-    }
-
-
-    public int[] position(int row, int column) {
-        int[] pos = {row, column};
-        return pos;
-    }
 
     public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
