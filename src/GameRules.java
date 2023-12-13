@@ -63,6 +63,7 @@ public class GameRules {
 
 
 
+
     public boolean isEmptyTile(int row, int column, String[][] currentBoard){
         if (currentBoard[row][column].equals(""))
             return true;

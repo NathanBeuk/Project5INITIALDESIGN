@@ -13,7 +13,7 @@ public class Game {
     public static void main(String[] args) {
         String[][] starterBoard = {// R = rook, H = horse(knight), B = Bishop, Q = queen, K = king, P = pawn, first column will just be command lines
                 {"forward" , "", "", "", "", "", "", "",""},
-                {"backward", "", "", "", "", "", "", "",""},
+                {"backward", "", "P_W0", "", "", "", "", "",""},
                 {"*****"   , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
                 {"*****"   , ""    , ""    , ""    , ""    , ""    , ""    , ""    , ""   },
                 {"*****",    ""    , ""    , "B_W0"    , "B_W0"    , ""    , ""    , ""    , ""   },
