@@ -139,16 +139,21 @@ public class Board extends JFrame {
             if (pieceShouldMove){
                 String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
 
-                if(gameRules.pawnToQueen(row, movingPiece)) {
-                    currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = movingPiece.replace('P', 'Q');
-                }
 
 
                 int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
                 movingPiece = movingPiece.substring(0,3) + timesMoved;
 
+
+                if(gameRules.pawnToQueen(row, movingPiece)) {
+                    System.out.println("hello this works");
+                    movingPiece = "Q" + movingPiece.substring(1);
+                }
                 currentBoard[row][column] = movingPiece;//moves piece to position in game
                 currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
+
+
+
 
                 teamSwap();
 
