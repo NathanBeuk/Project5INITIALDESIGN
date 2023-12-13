@@ -366,6 +366,21 @@ public class GameRules {
             }
         }
 
+        //String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
+
+
+
+        //int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
+        //movingPiece = movingPiece.substring(0,3) + timesMoved;
+        if(Integer.parseInt(currentBoard[row][column].substring(3)) == 0){
+            if (validPosition(row - 2, column, currentBoard)) {
+                if (isEmptyTile(row - 2, column, currentBoard)){
+                    PAWNpossibleMoves.add(position(row - 2, column));
+                }
+            }
+        }
+
+
 
         return PAWNpossibleMoves;
     }
