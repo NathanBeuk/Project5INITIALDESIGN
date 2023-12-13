@@ -132,6 +132,7 @@ public class GameRules {
         }
 
         return BISHOPpossibleMovesDL;
+
     }
 
     public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
