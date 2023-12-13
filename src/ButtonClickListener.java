@@ -7,11 +7,12 @@ public class ButtonClickListener implements ActionListener {
     private int column;
     private Board boardGui;
 
-    public ButtonClickListener(int row, int column, Board boardGui){
+    public ButtonClickListener(int row, int column, Board boardGui) {
         this.row = row;
         this.column = column;
         this.boardGui = boardGui;
     }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         boardGui.buttonPressed(row, column);
