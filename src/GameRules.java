@@ -54,6 +54,13 @@ public class GameRules {
         return possibleMoves;
     }
 
+    public boolean pawnToQueen(int row, String piece){
+        if(row == 0 && piece.charAt(0) == 'P'){
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean isEmptyTile(int row, int column, String[][] currentBoard){
         if (currentBoard[row][column].equals(""))
