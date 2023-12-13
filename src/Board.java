@@ -131,6 +131,11 @@ public class Board extends JFrame {
                 setBoardText();//changes the text on the buttons in frame so can see change
 
             }
+            else if (row == 7){
+                //backward
+                System.out.println("Thank you for playing");
+                System.exit(0);
+            }
         }
         else {//fires if selected a board tile
             boolean pieceShouldMove = shouldPieceMove(row, column, lastSelectedPiecesPossibleMoves, lastSelectedPosition);
