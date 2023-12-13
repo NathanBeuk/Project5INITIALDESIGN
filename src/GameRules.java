@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Queue;
 
 /**
  * Description
@@ -10,13 +9,20 @@ import java.util.Queue;
  */
 public class GameRules {
     /**
-     * constructor
+     * Constructor
      */
     public GameRules() {
 
     }
 
 
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return all possible moves for a piece that is selected, arrayList is empty if position has no possible moves
+     */
     public ArrayList<int[]> getPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
@@ -49,6 +55,12 @@ public class GameRules {
         return possibleMoves;
     }
 
+    /**
+     *
+     * @param row
+     * @param piece
+     * @return a boolean on whether a pawn should be promoted to a queen
+     */
     public boolean pawnToQueen(int row, String piece) {
         if (row == 0 && piece.charAt(0) == 'P') {
             return true;
@@ -56,12 +68,25 @@ public class GameRules {
         return false;
     }
 
+    /**
+     *
+     * @param row
+     * @param column , a positions column
+     * @param currentBoard
+     * @return a boolean on whether a position is an empty tile
+     */
     public boolean isEmptyTile(int row, int column, String[][] currentBoard) {
         if (currentBoard[row][column].equals(""))
             return true;
         return false;
     }
 
+    /**
+     *
+     * @param movingPiece
+     * @param possibleEnemy
+     * @return a boolean on whether the piece on a tile is an enemy
+     */
     public boolean enemy(String movingPiece, String possibleEnemy) {
         if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
             return false;//not an enemy
@@ -69,6 +94,12 @@ public class GameRules {
         return true;//is an enemy
     }
 
+    /**
+     *
+     * @param movingPiece
+     * @param possibleAlly
+     * @return a boolean on whether a piece is an ally, redundant right now should be removed eventually
+     */
     public boolean ally(String movingPiece, String possibleAlly) {
         if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
             return false; // not a friendly
@@ -76,6 +107,13 @@ public class GameRules {
         return true;//is an ally
     }
 
+    /**
+     *
+     * @param row
+     * @param column , a positions column
+     * @param board
+     * @return a boolean on whether a row and column is a valid position on the board
+     */
     public boolean validPosition(int row, int column, String[][] board) {
         int numRows = board.length;
         int numColumns = board[0].length;
@@ -87,10 +125,17 @@ public class GameRules {
         return false;
     }
 
+    /**
+     *
+     * @param row
+     * @param column , a positions column
+     * @return a two element array for a given row and column
+     */
     public int[] position(int row, int column) {
         int[] pos = {row, column};
         return pos;
     }
+
 
     public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
