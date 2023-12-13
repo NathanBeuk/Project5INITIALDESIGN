@@ -148,9 +148,19 @@ public class Board extends JFrame {
                     System.out.println("hello this works");
                     movingPiece = "Q" + movingPiece.substring(1);
                 }
+                String pieceCaptured = currentBoard[row][column];
+
                 currentBoard[row][column] = movingPiece;//moves piece to position in game
                 currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
 
+
+                if (!pieceCaptured.equals("")){
+                    if (pieceCaptured.charAt(0) == 'K'){
+                        System.out.println("Team " + team + " has won the game!!!!");
+                        System.out.println("Thank you for playing");
+                        System.exit(0);
+                    }
+                }
                 teamSwap();
 
                 currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved

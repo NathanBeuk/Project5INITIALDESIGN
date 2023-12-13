@@ -63,6 +63,7 @@ public class GameSequence {
     }
 
 
+
     // takes most recent move from removed moves and reinserts it onto the actual game stack
     public String[][] gameForward() {
         if (futureBoards.size() != 0) {

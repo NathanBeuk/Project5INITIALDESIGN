@@ -277,10 +277,12 @@ public class GameRules {
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> PAWNpossibleMoves = new ArrayList<>();
         //TODO en passant later
+        boolean directlyInFront = false;
         if (validPosition(row - 1, column, currentBoard)) {//position directly infront is empty and therefore pawn can move
             if (currentBoard[row - 1][column].equals("")) {
                 if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
                     PAWNpossibleMoves.add(position(row - 1, column));
+                    directlyInFront = true;
                 }
             }
         }
@@ -304,8 +306,10 @@ public class GameRules {
         //movingPiece = movingPiece.substring(0,3) + timesMoved;
         if (Integer.parseInt(currentBoard[row][column].substring(3)) == 0) {
             if (validPosition(row - 2, column, currentBoard)) {
-                if (isEmptyTile(row - 2, column, currentBoard)) {
-                    PAWNpossibleMoves.add(position(row - 2, column));
+                if(directlyInFront){
+                    if (isEmptyTile(row - 2, column, currentBoard)) {
+                        PAWNpossibleMoves.add(position(row - 2, column));
+                    }
                 }
             }
         }
