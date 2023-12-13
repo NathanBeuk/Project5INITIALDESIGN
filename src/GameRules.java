@@ -35,9 +35,6 @@ public class GameRules {
                 possibleMoves.addAll(bishopPossibleMovesUL(row, column, currentBoard));
 
 
-
-
-
             } else if (piece.charAt(0) == 'Q') {
                 possibleMoves.addAll(queenPossibleMoves(row, column, currentBoard));
 
@@ -365,7 +362,6 @@ public class GameRules {
                 }
             }
         }
-
 
         return PAWNpossibleMoves;
     }
