@@ -10,7 +10,8 @@ import java.util.Stack;
 public class GameSequence {
 
     /**
-     * A stack to hold all the boards
+     * Stacks for holding past boards, and future boards
+     * presentBoard is the current state of the chess board
      */
     private Stack<String[][]> pastBoards = new Stack<>();
     private String[][] presentBoard;
@@ -34,6 +35,11 @@ public class GameSequence {
 
     }
 
+    /**
+     * @param board a representation of the game board
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * Takes most recent move from play and puts it onto a rewound moves stack.
+     */
     public String[][] deepCopy(String[][] board) {
         String[][] copy = new String[board.length][board[0].length];
 
@@ -48,12 +54,10 @@ public class GameSequence {
     }
 
     /**
-     * returns a boards at a certain index (number of moves since beginning of game)
-     *
-     * @return
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * Takes most recent move from play and puts it onto a rewound moves stack.
      */
 
-    //takes most recent move from play and puts it onto a rewound moves stack
     public String[][] gameRewind() {
         if (pastBoards.size() != 0) {
             futureBoards.push(presentBoard);
@@ -64,7 +68,10 @@ public class GameSequence {
 
 
 
-    // takes most recent move from removed moves and reinserts it onto the actual game stack
+    /**
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * takes most recent move from removed moves and reinserts it onto the actual game stack.
+     */
     public String[][] gameForward() {
         if (futureBoards.size() != 0) {
             pastBoards.push(presentBoard);

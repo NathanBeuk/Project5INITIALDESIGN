@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Description
+ * This class holds all code for piece function for the chess game. Every piece's possible moves are recorded here, and given to
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
@@ -57,8 +57,8 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param piece
+     * @param row index of row location on board for potential piece change
+     * @param piece that is being changed (pawn).
      * @return a boolean on whether a pawn should be promoted to a queen
      */
     public boolean pawnToQueen(int row, String piece) {
@@ -70,9 +70,9 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
-     * @param currentBoard
+     * @param row index of row location on board
+     * @param column index of column location on board
+     * @param currentBoard the current state of the game board
      * @return a boolean on whether a position is an empty tile
      */
     public boolean isEmptyTile(int row, int column, String[][] currentBoard) {
@@ -83,8 +83,8 @@ public class GameRules {
 
     /**
      *
-     * @param movingPiece
-     * @param possibleEnemy
+     * @param movingPiece piece that is being used
+     * @param possibleEnemy returns true if is an enemy
      * @return a boolean on whether the piece on a tile is an enemy
      */
     public boolean enemy(String movingPiece, String possibleEnemy) {
@@ -96,8 +96,8 @@ public class GameRules {
 
     /**
      *
-     * @param movingPiece
-     * @param possibleAlly
+     * @param movingPiece piece that is being used
+     * @param possibleAlly returns true if is an ally
      * @return a boolean on whether a piece is an ally, redundant right now should be removed eventually
      */
     public boolean ally(String movingPiece, String possibleAlly) {
@@ -109,9 +109,9 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
-     * @param board
+     * @param row index of row location on board
+     * @param column index of column location on board
+     * @param board representation of the game board
      * @return a boolean on whether a row and column is a valid position on the board
      */
     public boolean validPosition(int row, int column, String[][] board) {
@@ -127,8 +127,8 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
+     * @param row index of row location on board
+     * @param column index of column location on board
      * @return a two element array for a given row and column
      */
     public int[] position(int row, int column) {
@@ -136,196 +136,21 @@ public class GameRules {
         return pos;
     }
 
-
-    public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    BISHOPpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDR;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    BISHOPpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesUR;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    BISHOPpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDL;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossiblemovesUL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    BISHOPpossiblemovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossiblemovesUL;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    QUEENpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDR;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    QUEENpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUR;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    QUEENpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDL;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    QUEENpossibleMovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUL;
-    }
-
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a pawn at a given location on the chess board.
+     * Includes possible enemies to take, and excludes allied occupied squares. Two forward squares are available for the pawns first move.
+     */
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> PAWNpossibleMoves = new ArrayList<>();
         //TODO en passant later
         boolean directlyInFront = false;
-        if (validPosition(row - 1, column, currentBoard)) {//position directly infront is empty and therefore pawn can move
+        if (validPosition(row - 1, column, currentBoard)) {//position directly in front is empty and therefore pawn can move
             if (currentBoard[row - 1][column].equals("")) {
-                if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
+                if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) { //Checks if is not an ally,therefore either an enemy or empty square
                     PAWNpossibleMoves.add(position(row - 1, column));
                     directlyInFront = true;
                 }
@@ -345,10 +170,6 @@ public class GameRules {
                 }
             }
         }
-
-        //String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
-        //int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
-        //movingPiece = movingPiece.substring(0,3) + timesMoved;
         if (Integer.parseInt(currentBoard[row][column].substring(3)) == 0) {
             if (validPosition(row - 2, column, currentBoard)) {
                 if(directlyInFront){
@@ -362,70 +183,460 @@ public class GameRules {
     }
 
 
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/right diagonal.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row + i, column + i, currentBoard)) {
+                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
+                    BISHOPpossibleMovesDR.add(position(row + i, column + i));
+                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) { //if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else { //if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else { //if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return BISHOPpossibleMovesDR;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/right diagonal.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row - i, column + i, currentBoard)) {
+                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
+                    BISHOPpossibleMovesUR.add(position(row - i, column + i));
+                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return BISHOPpossibleMovesUR;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/left diagonal.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row + i, column - i, currentBoard)) {
+                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
+                    BISHOPpossibleMovesDL.add(position(row + i, column - i));
+                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return BISHOPpossibleMovesDL;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/left diagonal.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> BISHOPpossiblemovesUL = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row - i, column - i, currentBoard)) {
+                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
+                    BISHOPpossiblemovesUL.add(position(row - i, column - i));
+                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return BISHOPpossiblemovesUL;
+    }
+
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
     public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> ROOKpossiblemoves = new ArrayList<>();
 
         for (int i = row - 1; i >= 0; i--) { //up
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
                 break;
             }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
                 ROOKpossiblemoves.add(position(i, column));
                 break;
             }
-            if (validPosition(i, column, currentBoard)) {
+            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
                 ROOKpossiblemoves.add(position(i, column));
             }
         }
 
         for (int i = column - 1; i > 0; i--) { // left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
                 break;
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
                 ROOKpossiblemoves.add(position(row, i));
                 break;
             }
-            if (validPosition(row, i, currentBoard)) {
+            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
                 ROOKpossiblemoves.add(position(row, i));
             }
         }
 
         for (int i = row + 1; i < currentBoard.length; i++) { //down
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
                 break;
             }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
                 ROOKpossiblemoves.add(position(i, column));
                 break;
             }
-            if (validPosition(i, column, currentBoard)) {
+            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
                 ROOKpossiblemoves.add(position(i, column));
             }
         }
 
         for (int i = column + 1; i < currentBoard[0].length; i++) { // right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
                 break;
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
                 ROOKpossiblemoves.add(position(row, i));
                 break;
             }
-            if (validPosition(row, i, currentBoard)) {
+            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
                 ROOKpossiblemoves.add(position(row, i));
             }
         }
         return ROOKpossiblemoves;
     }
 
-    //hardcoded moves for knight since there's only a max number of 8, and it is less dynamic
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the row and column visible to the Queen.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> queenPossibleMoves(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
+
+        // VERTICAL and HORIZONTAL movement
+        for (int i = row - 1; i >= 0; i--) { //up
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
+                QUEENpossibleMoves.add(position(i, column));
+                break;
+            }
+            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
+                QUEENpossibleMoves.add(position(i, column));
+            }
+        }
+
+        for (int i = row + 1; i < currentBoard.length; i++) { //down
+            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[i][column])) { //if there is an enemy at the board index, the move is added and then the loop is broken
+                QUEENpossibleMoves.add(position(i, column));
+                break;
+            }
+            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
+                QUEENpossibleMoves.add(position(i, column));
+            }
+        }
+
+        for (int i = column - 1; i > 0; i--) { // left
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
+                QUEENpossibleMoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
+                QUEENpossibleMoves.add(position(row, i));
+            }
+        }
+
+        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
+            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
+                break;
+            }
+            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
+                QUEENpossibleMoves.add(position(row, i));
+                break;
+            }
+            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
+                QUEENpossibleMoves.add(position(row, i));
+            }
+        }
+
+        return QUEENpossibleMoves;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/right diagonal visible to the Queen.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row + i, column + i, currentBoard)) {
+                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
+                    QUEENpossibleMovesDR.add(position(row + i, column + i));
+                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return QUEENpossibleMovesDR;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/right diagonal visible to the Queen.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
+
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row - i, column + i, currentBoard)) {
+                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
+                    QUEENpossibleMovesUR.add(position(row - i, column + i));
+                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return QUEENpossibleMovesUR;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/left diagonal visible to the Queen.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row + i, column - i, currentBoard)) {
+                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
+                    QUEENpossibleMovesDL.add(position(row + i, column - i));
+                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return QUEENpossibleMovesDL;
+    }
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/left diagonal visible to the Queen.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
+        boolean condition = true;
+        int i = 1;
+        while (condition) {
+            if (validPosition(row - i, column - i, currentBoard)) {
+                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
+                    QUEENpossibleMovesUL.add(position(row - i, column - i));
+                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                        condition = false;
+                    }
+                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                    condition = false;
+                }
+            } else {//if the move is not a valid position, the loop is broken
+                condition = false;
+            }
+            i = i + 1;
+        }
+        return QUEENpossibleMovesUL;
+    }
+
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for the King at a given location on the chess board for the possible moves that are visible to the King.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     * These moves are hardcoded, since there is only a maximum number of 8 possible moves that a king could potentially make.
+     */
+    public ArrayList<int[]> kingPossibleMoves(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> KINGpossibleMoves = new ArrayList<>();
+
+        //moves are checked for each square surrounding the King
+        if (validPosition(row - 1, column - 1, currentBoard)) { //checks if valid position
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {//Checks if is not an ally,therefore either an enemy or empty square
+                KINGpossibleMoves.add(position(row - 1, column - 1)); //adds move to ArrayList
+            }
+        }
+        if (validPosition(row, column - 1, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row][column - 1])) {
+                KINGpossibleMoves.add(position(row, column - 1));
+            }
+        }
+        if (validPosition(row + 1, column - 1, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column - 1])) {
+                KINGpossibleMoves.add(position(row + 1, column - 1));
+            }
+        }
+        if (validPosition(row - 1, column, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
+                KINGpossibleMoves.add(position(row - 1, column));
+            }
+        }
+        if (validPosition(row + 1, column, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column])) {
+                KINGpossibleMoves.add(position(row + 1, column));
+            }
+        }
+        if (validPosition(row - 1, column + 1, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+                KINGpossibleMoves.add(position(row - 1, column + 1));
+            }
+        }
+        if (validPosition(row, column + 1, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row][column + 1])) {
+                KINGpossibleMoves.add(position(row, column + 1));
+            }
+        }
+        if (validPosition(row + 1, column + 1, currentBoard)) {
+            if (!ally(currentBoard[row][column], currentBoard[row + 1][column + 1])) {
+                KINGpossibleMoves.add(position(row + 1, column + 1));
+            }
+        }
+        return KINGpossibleMoves;
+    }
+
+
+
+    /**
+     *
+     * @param row , row of selected position
+     * @param column , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Knight at a given location on the chess board for possible moves that are visible to the Knight.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     * These moves are hardcoded, since there is only a maximum number of 8 possible moves that a Knight could potentially make.
+     */
     public ArrayList<int[]> horsePossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
 
-        if (validPosition(row - 2, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {
-                HORSEpossibleMoves.add(position(row - 2, column - 1));
+        if (validPosition(row - 2, column - 1, currentBoard)) {//checks if valid position
+            if (!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {//Checks if is not an ally,therefore either an enemy or empty square
+                HORSEpossibleMoves.add(position(row - 2, column - 1));// adds move to ArrayList
             }
         }
         if (validPosition(row - 2, column + 1, currentBoard)) {
@@ -467,124 +678,13 @@ public class GameRules {
         return HORSEpossibleMoves;
     }
 
-    public ArrayList<int[]> queenPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
 
-        // VERTICAL and HORIZONTAL movement
-        for (int i = row - 1; i >= 0; i--) { //up
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column - 1; i > 0; i--) { // left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        for (int i = row + 1; i < currentBoard.length; i++) { //down
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        return QUEENpossibleMoves;
-    }
-
-    //hardcoded moves for king as well since only max of 8, and less dynamic
-    public ArrayList<int[]> kingPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> KINGpossibleMoves = new ArrayList<>();
-
-        if (validPosition(row - 1, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
-                KINGpossibleMoves.add(position(row - 1, column - 1));
-            }
-        }
-        if (validPosition(row, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row][column - 1])) {
-                KINGpossibleMoves.add(position(row, column - 1));
-            }
-        }
-        if (validPosition(row + 1, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row + 1][column - 1])) {
-                KINGpossibleMoves.add(position(row + 1, column - 1));
-            }
-        }
-        if (validPosition(row - 1, column, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
-                KINGpossibleMoves.add(position(row - 1, column));
-            }
-        }
-        if (validPosition(row + 1, column, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row + 1][column])) {
-                KINGpossibleMoves.add(position(row + 1, column));
-            }
-        }
-        if (validPosition(row - 1, column + 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
-                KINGpossibleMoves.add(position(row - 1, column + 1));
-            }
-        }
-        if (validPosition(row, column + 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row][column + 1])) {
-                KINGpossibleMoves.add(position(row, column + 1));
-            }
-        }
-        if (validPosition(row + 1, column + 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row + 1][column + 1])) {
-                KINGpossibleMoves.add(position(row + 1, column + 1));
-            }
-        }
-        return KINGpossibleMoves;
-    }
-
-    public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
-        /*
-        if pieceType == "King"
-        else if pieceType == "Pawn"
-        else if pieceType == "Queen" || pieceType == "Bishop"
-        else
-            return empty
-         */
-        return possibleMoves;
-    }
-
+    /**
+     *
+     * @param board , 2D array of the gameboard
+     * @return returns the flipped board so that the game is playable from both white and black. The board flips after each move that is made.
+     * A flip does not alter row and column locations.
+     */
     public String[][] flipBoard(String[][] board) {//will be useful to simplify operations
         int rows = board.length;
         int columns = board[0].length;

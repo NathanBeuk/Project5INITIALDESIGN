@@ -130,7 +130,7 @@ public class Board extends JFrame {
                 setBoardText();//changes the text on the buttons in frame so can see change
 
             } else if (row == 7) {
-                //backward
+                //ends game
                 System.out.println("Thank you for playing");
                 System.exit(0);
             }
@@ -145,7 +145,7 @@ public class Board extends JFrame {
                 movingPiece = movingPiece.substring(0, 3) + timesMoved;
 
                 if (gameRules.pawnToQueen(row, movingPiece)) {
-                    System.out.println("hello this works");
+                    //System.out.println("hello this works");
                     movingPiece = "Q" + movingPiece.substring(1);
                 }
                 String pieceCaptured = currentBoard[row][column];
