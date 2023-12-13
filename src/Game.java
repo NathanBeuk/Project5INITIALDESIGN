@@ -21,7 +21,7 @@ public class Game {
                 {"p-taken" , "", "", "", "", "", "", "",""},
                 {"end"     , "", "", "", "", "", "", "",""},
         };
-        new BoardGui(starterBoard);
+        new Board(starterBoard);
 
 
 

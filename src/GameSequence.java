@@ -22,14 +22,13 @@ public class GameSequence {
         presentBoard = deepCopy(startingBoard);
     }
 
-    public String[][] move(String[][] newBoard){
+    public void move(String[][] newBoard){
 
         pastBoards.push(presentBoard);
         presentBoard = deepCopy(newBoard);
 
-
-        return presentBoard;
     }
+
     public String[][] deepCopy(String[][] board){
         String[][] copy = new String[board.length][board[0].length];
 

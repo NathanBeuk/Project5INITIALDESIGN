@@ -4,7 +4,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class BoardGui extends JFrame {
+public class Board extends JFrame {
     private String[][] currentBoard;
 
     private JButton[][] buttons;
@@ -18,7 +18,7 @@ public class BoardGui extends JFrame {
     private char team;
 
 
-    public BoardGui(String[][] board){
+    public Board(String[][] board){
 
         currentBoard = board;
         buttons = new JButton[board.length][board[0].length];
@@ -87,7 +87,7 @@ public class BoardGui extends JFrame {
         }
     }
 
-    public boolean isInArrayList(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition){//checks if the last selected position was a valid tile, and if current selected tile in in possible moves for last selected tile
+    public boolean shouldPieceMove(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition){//checks if the last selected position was a valid tile, and if current selected tile in possible moves for last selected tile
         if (gameRules.validPosition(lastposition[0], lastposition[1], currentBoard)){
 
             for (int i = 0; i < possibleMoves.size(); i = i +1){
@@ -108,47 +108,53 @@ public class BoardGui extends JFrame {
             buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(color);
         }
     }
-    public void displayValue(int row, int column){
-        boolean pieceShouldMove = isInArrayList(row, column, lastSelectedPiecesPossibleMoves, lastSelectedPosition);
+    public void teamSwap(){
+        if (team == 'W'){
+            team = 'B';
+        }else {
+            team = 'W';
+        }
+    }
+    public void buttonPressed(int row, int column){
+        if (column == 0){//fires if pressed a command button so no rules need be referenced
 
-        //TODO checking if button was even a valid piece and not a command button
-        //TODO valid index
-        normalizeColors();
+        }
+        else {//fires if selected a board tile
+            boolean pieceShouldMove = shouldPieceMove(row, column, lastSelectedPiecesPossibleMoves, lastSelectedPosition);
 
-        if (pieceShouldMove){
-            //TODO move piece somehow, well calculations will already have been done so maybe I just move the string in both array, and button text, and
-            String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
+            normalizeColors();
+            if (pieceShouldMove){
+                String movingPiece = currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]];
 
-            int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
-            movingPiece = movingPiece.substring(0,3) + timesMoved;
 
-            currentBoard[row][column] = movingPiece;//moves piece to position in game
-            currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
+                int timesMoved = Integer.parseInt(movingPiece.substring(3)) + 1;
+                movingPiece = movingPiece.substring(0,3) + timesMoved;
 
-            if (team == 'W'){
-                team = 'B';
-            }else {
-                team = 'W';
-            }
+                currentBoard[row][column] = movingPiece;//moves piece to position in game
+                currentBoard[lastSelectedPosition[0]][lastSelectedPosition[1]] = "";
 
-            currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved
-            setBoardText();//changes the text on the frame
+                teamSwap();
 
-        } else {
-            lastSelectedPosition[0] = row;
-            lastSelectedPosition[1] = column;
+                currentBoard = gameRules.flipBoard(currentBoard);//flips board after piece was moved
 
-            buttons[row][column].setBackground(Color.cyan);
-            String lastPiece = currentBoard[row][column];
-            if (lastPiece.length() > 0){
-                if (lastPiece.charAt(2) == team){
-                    ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
-                    lastSelectedPiecesPossibleMoves = possibleMoves;
+                setBoardText();//changes the text on the buttons in frame so can see change
 
-                    colorPossibleMoves(possibleMoves);
-                    System.out.println(currentBoard[row][column]);
+            } else {
+                lastSelectedPosition[0] = row;
+                lastSelectedPosition[1] = column;
+
+                buttons[row][column].setBackground(Color.cyan);
+                String lastPiece = currentBoard[row][column];
+                if (lastPiece.length() > 0){//if piece selected isn't an empty string
+                    if (lastPiece.charAt(2) == team){
+                        ArrayList<int[]> possibleMoves = gameRules.getPossibleMoves(row, column, currentBoard);
+                        lastSelectedPiecesPossibleMoves = possibleMoves;
+
+                        colorPossibleMoves(possibleMoves);
+                    }
                 }
             }
         }
+
     }
 }
