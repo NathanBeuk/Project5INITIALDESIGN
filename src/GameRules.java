@@ -100,22 +100,17 @@ public class GameRules {
         return pos;
     }
     public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
-
-        //for every increment of both variables, you can set i = to either starting row index or column index
-        //this is effectively the same regardless of which you choose, because you just need a starting reference point.
-        //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
+        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
 
         boolean condition = true;
         int i = 1;
         while (condition){
             if(validPosition(row + i, column + i, currentBoard)){
                 if (isEmptyTile(row + i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
-                    possibleMoves.add(position(row + i, column + i));
+                    BISHOPpossibleMovesDR.add(position(row + i, column + i));
                     if(enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
                         condition = false;
                     }
-
                 }
                 else {
                     condition = false;
@@ -124,27 +119,23 @@ public class GameRules {
             else {
                 condition = false;
             }
-
-
             i = i + 1;
         }
-
-        return possibleMoves;
+        return BISHOPpossibleMovesDR;
     }
 
     public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
 
         boolean condition = true;
         int i = 1;
         while (condition){
             if(validPosition(row - i, column + i, currentBoard)){
                 if (isEmptyTile(row - i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
-                    possibleMoves.add(position(row - i, column + i));
+                    BISHOPpossibleMovesUR.add(position(row - i, column + i));
                     if(enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
                         condition = false;
                     }
-
                 }
                 else {
                     condition = false;
@@ -153,25 +144,20 @@ public class GameRules {
             else {
                 condition = false;
             }
-
-
             i = i + 1;
         }
-
-        return possibleMoves;
-
-
+        return BISHOPpossibleMovesUR;
     }
 
     public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
 
         boolean condition = true;
         int i = 1;
         while (condition){
             if(validPosition(row + i, column - i, currentBoard)){
                 if (isEmptyTile(row + i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
-                    possibleMoves.add(position(row + i, column - i));
+                    BISHOPpossibleMovesDL.add(position(row + i, column - i));
                     if(enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
                         condition = false;
                     }
@@ -183,28 +169,23 @@ public class GameRules {
             else {
                 condition = false;
             }
-
-
             i = i + 1;
         }
-
-        return possibleMoves;
-
+        return BISHOPpossibleMovesDL;
     }
 
     public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        ArrayList<int[]> BISHOPpossiblemovesUL = new ArrayList<>();
 
         boolean condition = true;
         int i = 1;
         while (condition){
             if(validPosition(row - i, column - i, currentBoard)){
                 if (isEmptyTile(row - i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
-                    possibleMoves.add(position(row - i, column - i));
+                    BISHOPpossiblemovesUL.add(position(row - i, column - i));
                     if(enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
                         condition = false;
                     }
-
                 }
                 else {
                     condition = false;
@@ -213,12 +194,9 @@ public class GameRules {
             else {
                 condition = false;
             }
-
-
             i = i + 1;
         }
-
-        return possibleMoves;
+        return BISHOPpossiblemovesUL;
     }
 
 
@@ -237,42 +215,52 @@ public class GameRules {
     public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
 
-        //for every increment of both variables, you can set i = to either starting row index or column index
-        //this is effectively the same regardless of which you choose, because you just need a starting reference point.
-        //incrementing both values moves the value horizontally and vertically by one, making the diagonal movement.
-
-        row = row + 1; column = column + 1;
-        for (int i = column; i < currentBoard.length; i++, row++) { // down right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row + i, column + i, currentBoard)){
+                if (isEmptyTile(row + i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
+                    QUEENpossibleMovesDR.add(position(row + i, column + i));
+                    if(enemy(currentBoard[row][column], currentBoard[row + i][column + i])){
+                        condition = false;
+                    }
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMovesDR.add(position(row, i));
-                break;
+            else {
+                condition = false;
             }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMovesDR.add(position(row, i));
-            }
+            i = i + 1;
         }
-
         return QUEENpossibleMovesDR;
     }
 
     public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
 
-        row = row - 1; column = column + 1;
-        for (int i = column; i < currentBoard[0].length; i++, row--) { // up right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row - i, column + i, currentBoard)){
+                if (isEmptyTile(row - i,column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
+                    QUEENpossibleMovesUR.add(position(row - i, column + i));
+                    if(enemy(currentBoard[row][column], currentBoard[row - i][column + i])){
+                        condition = false;
+                    }
+
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMovesUR.add(position(row, i));
-                break;
+            else {
+                condition = false;
             }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMovesUR.add(position(row, i));
-            }
+
+
+            i = i + 1;
         }
 
         return QUEENpossibleMovesUR;
@@ -280,18 +268,26 @@ public class GameRules {
 
     public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
-        row = row + 1; column = column - 1;
-        for (int i = column; i > 0; i--, row++) { // down left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row + i, column - i, currentBoard)){
+                if (isEmptyTile(row + i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
+                    QUEENpossibleMovesDL.add(position(row + i, column - i));
+                    if(enemy(currentBoard[row][column], currentBoard[row + i][column - i])){
+                        condition = false;
+                    }
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMovesDL.add(position(row, i));
-                break;
+            else {
+                condition = false;
             }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMovesDL.add(position(row, i));
-            }
+
+
+            i = i + 1;
         }
 
         return QUEENpossibleMovesDL;
@@ -299,18 +295,27 @@ public class GameRules {
 
     public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
-        row = row - 1; column = column - 1;
-        for (int i = column; i > 0; i--, row--) { //up left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
+        boolean condition = true;
+        int i = 1;
+        while (condition){
+            if(validPosition(row - i, column - i, currentBoard)){
+                if (isEmptyTile(row - i,column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
+                    QUEENpossibleMovesUL.add(position(row - i, column - i));
+                    if(enemy(currentBoard[row][column], currentBoard[row - i][column - i])){
+                        condition = false;
+                    }
+
+                }
+                else {
+                    condition = false;
+                }
             }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMovesUL.add(position(row, i));
-                break;
+            else {
+                condition = false;
             }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMovesUL.add(position(row, i));
-            }
+
+
+            i = i + 1;
         }
 
         return QUEENpossibleMovesUL;
