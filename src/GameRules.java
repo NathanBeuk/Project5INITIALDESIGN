@@ -351,6 +351,14 @@ public class GameRules {
                 }
             }
         }
+
+        if (validPosition(row - 1, column + 1, currentBoard)) {
+            if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+                if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+                    PAWNpossibleMoves.add(position(row - 1, column + 1));
+                }
+            }
+        }
         return PAWNpossibleMoves;
     }
 

@@ -26,6 +26,10 @@ public class GameSequence {
 
         pastBoards.push(presentBoard);
         presentBoard = deepCopy(newBoard);
+        if (futureBoards.size() > 0){
+            futureBoards.clear();
+        }
+
 
     }
 
