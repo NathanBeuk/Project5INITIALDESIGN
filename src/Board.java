@@ -145,7 +145,6 @@ public class Board extends JFrame {
                 movingPiece = movingPiece.substring(0, 3) + timesMoved;
 
                 if (gameRules.pawnToQueen(row, movingPiece)) {
-                    System.out.println("hello this works");
                     movingPiece = "Q" + movingPiece.substring(1);
                 }
                 String pieceCaptured = currentBoard[row][column];

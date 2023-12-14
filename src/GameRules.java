@@ -31,22 +31,16 @@ public class GameRules {
             if (piece.charAt(0) == 'P') {
                 possibleMoves.addAll(pawnPossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'R') {
-                possibleMoves.addAll(rookPossibleMoves(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleHorizontalAndVerticalMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
-                possibleMoves.addAll(bishopPossibleMovesDR(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesDL(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesUR(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesUL(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'Q') {
-                possibleMoves.addAll(queenPossibleMoves(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleHorizontalAndVerticalMoves(row, column, currentBoard));
 
-                possibleMoves.addAll(queenPossibleMovesDR(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesDL(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesUR(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesUL(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'K') {
                 possibleMoves.addAll(kingPossibleMoves(row, column, currentBoard));
@@ -88,7 +82,9 @@ public class GameRules {
      * @return a boolean on whether the piece on a tile is an enemy
      */
     public boolean enemy(String movingPiece, String possibleEnemy) {
-        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+            System.out.println(movingPiece.length());
+            System.out.println(possibleEnemy.length());
             return false;//not an enemy
         }
         return true;//is an enemy
@@ -98,7 +94,7 @@ public class GameRules {
      *
      * @param movingPiece
      * @param possibleAlly
-     * @return a boolean on whether a piece is an ally, redundant right now should be removed eventually
+     * @return used in the same way as combining the isEmptyTile method and enemy tile for faster use
      */
     public boolean ally(String movingPiece, String possibleAlly) {
         if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
@@ -137,210 +133,32 @@ public class GameRules {
     }
 
 
-    public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    BISHOPpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDR;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    BISHOPpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesUR;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    BISHOPpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDL;
-    }
-
-    public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossiblemovesUL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    BISHOPpossiblemovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossiblemovesUL;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    QUEENpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDR;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    QUEENpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUR;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    QUEENpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDL;
-    }
-
-    public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    QUEENpossibleMovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                        condition = false;
-                    }
-                } else {
-                    condition = false;
-                }
-            } else {
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUL;
-    }
-
+    //pawn moves
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> PAWNpossibleMoves = new ArrayList<>();
         //TODO en passant later
         boolean directlyInFront = false;
+
         if (validPosition(row - 1, column, currentBoard)) {//position directly infront is empty and therefore pawn can move
-            if (currentBoard[row - 1][column].equals("")) {
-                if (!ally(currentBoard[row][column], currentBoard[row - 1][column])) {
-                    PAWNpossibleMoves.add(position(row - 1, column));
-                    directlyInFront = true;
-                }
+            if (isEmptyTile(row - 1,column, currentBoard)) {//needs to be emtpy
+                PAWNpossibleMoves.add(position(row - 1, column));
+                directlyInFront = true;
+
             }
         }
-        if (validPosition(row - 1, column - 1, currentBoard)) {
-            if (enemy(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
-                if (!ally(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
+        if (validPosition(row - 1, column - 1, currentBoard)) {//forward and to the left
+
+            if (!isEmptyTile(row - 1,column - 1, currentBoard)) {//can't be empty
+
+                if (enemy(currentBoard[row][column], currentBoard[row - 1][column - 1])) {
+
                     PAWNpossibleMoves.add(position(row - 1, column - 1));
                 }
             }
         }
-        if (validPosition(row - 1, column + 1, currentBoard)) {
-            if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
-                if (!ally(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
+        if (validPosition(row - 1, column + 1, currentBoard)) {//forward and to right
+            if (!isEmptyTile(row - 1, column + 1, currentBoard)) {
+                if (enemy(currentBoard[row][column], currentBoard[row - 1][column + 1])) {
                     PAWNpossibleMoves.add(position(row - 1, column + 1));
                 }
             }
@@ -361,85 +179,28 @@ public class GameRules {
         return PAWNpossibleMoves;
     }
 
-
-    public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> ROOKpossiblemoves = new ArrayList<>();
-
-        for (int i = row - 1; i >= 0; i--) { //up
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                ROOKpossiblemoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                ROOKpossiblemoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column - 1; i > 0; i--) { // left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                ROOKpossiblemoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                ROOKpossiblemoves.add(position(row, i));
-            }
-        }
-
-        for (int i = row + 1; i < currentBoard.length; i++) { //down
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                ROOKpossiblemoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                ROOKpossiblemoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                ROOKpossiblemoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                ROOKpossiblemoves.add(position(row, i));
-            }
-        }
-        return ROOKpossiblemoves;
-    }
-
     //hardcoded moves for knight since there's only a max number of 8, and it is less dynamic
+    //Rook moves
     public ArrayList<int[]> horsePossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
 
         if (validPosition(row - 2, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 2][column - 1])) {
+            if (isEmptyTile(row - 2, column - 1,currentBoard) || enemy(currentBoard[row][column], currentBoard[row - 2][column - 1])){
                 HORSEpossibleMoves.add(position(row - 2, column - 1));
             }
         }
         if (validPosition(row - 2, column + 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row - 2][column + 1])) {
+            if(isEmptyTile(row - 2, column + 1, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - 2][column + 1])){
                 HORSEpossibleMoves.add(position(row - 2, column + 1));
             }
         }
         if (validPosition(row + 2, column - 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row + 2][column - 1])) {
+            if(isEmptyTile(row + 2, column - 1, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + 2][column - 1])){
                 HORSEpossibleMoves.add(position(row + 2, column - 1));
             }
         }
         if (validPosition(row + 2, column + 1, currentBoard)) {
-            if (!ally(currentBoard[row][column], currentBoard[row + 2][column + 1])) {
+            if (isEmptyTile(row + 2, column + 1, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + 2][column + 1])){
                 HORSEpossibleMoves.add(position(row + 2, column + 1));
             }
         }
@@ -465,65 +226,6 @@ public class GameRules {
         }
 
         return HORSEpossibleMoves;
-    }
-
-    public ArrayList<int[]> queenPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
-
-        // VERTICAL and HORIZONTAL movement
-        for (int i = row - 1; i >= 0; i--) { //up
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column - 1; i > 0; i--) { // left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        for (int i = row + 1; i < currentBoard.length; i++) { //down
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        return QUEENpossibleMoves;
     }
 
     //hardcoded moves for king as well since only max of 8, and less dynamic
@@ -573,17 +275,7 @@ public class GameRules {
         return KINGpossibleMoves;
     }
 
-    public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> possibleMoves = new ArrayList<>();
-        /*
-        if pieceType == "King"
-        else if pieceType == "Pawn"
-        else if pieceType == "Queen" || pieceType == "Bishop"
-        else
-            return empty
-         */
-        return possibleMoves;
-    }
+
 
     public String[][] flipBoard(String[][] board) {//will be useful to simplify operations
         int rows = board.length;
@@ -599,4 +291,181 @@ public class GameRules {
         }
         return board;
     }
+
+
+
+    public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+        boolean condition = true;
+        boolean downRight = true;
+        boolean upRight = true;
+        boolean downLeft = true;
+        boolean upLeft = true;
+
+
+        int i = 1;
+        while (condition) {
+            //down and to the right
+            if (downRight){
+                if (validPosition(row + i, column + i, currentBoard)) {
+                    if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
+                        possibleMoves.add(position(row + i, column + i));
+                        if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
+                            downRight = false;
+                        }
+                    } else {
+                        downRight = false;
+                    }
+                } else {
+                    downRight = false;
+                }
+            }
+
+
+            //up and to the right
+            if (upRight){
+                if (validPosition(row - i, column + i, currentBoard)) {
+                    if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
+                        possibleMoves.add(position(row - i, column + i));
+                        if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
+                            upRight = false;
+                        }
+                    } else {
+                        upRight = false;
+                    }
+                } else {
+                    upRight = false;
+                }
+            }
+
+            //down and to the left
+            if (downLeft){
+                if (validPosition(row + i, column - i, currentBoard)) {
+                    if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
+                        possibleMoves.add(position(row + i, column - i));
+                        if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
+                            downLeft = false;
+                        }
+                    } else {
+                        downLeft = false;
+                    }
+                } else {
+                    downLeft = false;
+                }
+            }
+
+
+
+
+            //up and to the left
+            if (upLeft){
+                if (validPosition(row - i, column - i, currentBoard)) {
+                    if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
+                        possibleMoves.add(position(row - i, column - i));
+                        if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
+                            upLeft = false;
+                        }
+                    } else {
+                        upLeft = false;
+                    }
+                } else {
+                    upLeft = false;
+                }
+            }
+
+
+
+            //check condition
+            if (!downRight){//block to end code
+                if(!upRight){
+                    if(!downLeft){
+                        if(!upLeft){
+                            condition = false;
+                        }
+                    }
+                }
+            }
+            i = i + 1;
+        }
+        return possibleMoves;
+    }
+    public ArrayList<int[]> getPossibleHorizontalAndVerticalMoves(int row, int column, String[][] currentBoard){
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+
+
+        for (int i = row - 1; i >= 0; i--) { //up
+            if (validPosition(i, column, currentBoard)){
+                if (isEmptyTile(i,column,currentBoard) || enemy(currentBoard[row][column], currentBoard[i][column])){
+                    //if tile is either empty or there is an enemy on the tile
+                    possibleMoves.add(position(i, column));
+                    if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                        break;
+                    }
+                }
+                else {//tile has something on it and it isn't an enemy
+                    break;
+                }
+            }
+            else {//if not a valid position
+                break;
+            }
+        }
+
+        for (int i = column - 1; i > 0; i--) { // left
+            if (validPosition(row, i, currentBoard)){
+                if (isEmptyTile(row, i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row][i])){
+                    //if tile is either empty or there is an enemy on the tile
+                    possibleMoves.add(position(row, i));
+                    if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                        break;
+                    }
+                }
+                else {//tile has something on it and it isn't an enemy
+                    break;
+                }
+            }
+            else {//if not a valid position
+                break;
+            }
+        }
+
+        for (int i = row + 1; i < currentBoard.length; i++) { //down
+            if (validPosition(i, column, currentBoard)){
+                if (isEmptyTile(i,column,currentBoard) || enemy(currentBoard[row][column], currentBoard[i][column])){
+                    //if tile is either empty or there is an enemy on the tile
+                    possibleMoves.add(position(i, column));
+                    if (enemy(currentBoard[row][column], currentBoard[i][column])) {
+                        break;
+                    }
+                }
+                else {//tile has something on it and it isn't an enemy
+                    break;
+                }
+            }
+            else {//if not a valid position
+                break;
+            }
+        }
+
+        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
+            if (validPosition(row, i, currentBoard)){
+                if (isEmptyTile(row, i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row][i])){
+                    //if tile is either empty or there is an enemy on the tile
+                    possibleMoves.add(position(row, i));
+                    if (enemy(currentBoard[row][column], currentBoard[row][i])) {
+                        break;
+                    }
+                }
+                else {//tile has something on it and it isn't an enemy
+                    break;
+                }
+            }
+            else {//if not a valid position
+                break;
+            }
+        }
+
+        return possibleMoves;
+    }
+
 }
