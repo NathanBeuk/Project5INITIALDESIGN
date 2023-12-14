@@ -29,7 +29,7 @@ public class Board extends JFrame {
 
 
     /**
-     * Starts the chess game
+     * Board constructor
      */
     public Board(String[][] board) {
 
