@@ -1,8 +1,8 @@
 /**
- * This is the String representation of the starting board. This will be passed to the Board class
+ * This is the class with main to start up the gamwe
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
- * @since 11-29-23
+ * @since 12/13/23
  * Reference: https://stackoverflow.com/questions/284899/how-do-you-add-an-actionlistener-onto-a-jbutton-in-java
  */
 public class Game {
