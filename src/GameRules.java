@@ -17,11 +17,11 @@ public class GameRules {
 
 
     /**
-     *
-     * @param row , row of selected position
-     * @param column , column of selected position
-     * @param currentBoard , takes current board
-     * @return all possible moves for a piece that is selected, arrayList is empty if position has no possible moves
+     * a method that returns all possible move for a selected tile on the current board
+     * @param row: row of selected position
+     * @param column: column of selected position
+     * @param currentBoard: the current board
+     * @return ArrayList<int[]> all possible moves for a piece that is selected, arrayList is empty if position has no possible moves
      */
     public ArrayList<int[]> getPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
@@ -50,9 +50,9 @@ public class GameRules {
     }
 
     /**
-     *
-     * @param row
-     * @param piece
+     * a method for the logic on whether to transform a pawn into a queen
+     * @param row: row of selected position
+     * @param piece: column of selected position
      * @return a boolean on whether a pawn should be promoted to a queen
      */
     public boolean pawnToQueen(int row, String piece) {
@@ -64,9 +64,9 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
-     * @param currentBoard
+     * @param row: row of selected position
+     * @param column: column of selected position
+     * @param currentBoard: the current board
      * @return a boolean on whether a position is an empty tile
      */
     public boolean isEmptyTile(int row, int column, String[][] currentBoard) {
@@ -77,14 +77,13 @@ public class GameRules {
 
     /**
      *
-     * @param movingPiece
-     * @param possibleEnemy
+     * @param movingPiece: the piece selected
+     * @param possibleEnemy: the piece at the tile being checked
      * @return a boolean on whether the piece on a tile is an enemy
      */
     public boolean enemy(String movingPiece, String possibleEnemy) {
         if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
-            System.out.println(movingPiece.length());
-            System.out.println(possibleEnemy.length());
+
             return false;//not an enemy
         }
         return true;//is an enemy
@@ -92,8 +91,8 @@ public class GameRules {
 
     /**
      *
-     * @param movingPiece
-     * @param possibleAlly
+     * @param movingPiece: the piece selected
+     * @param possibleAlly: the piece at the tile being checked
      * @return used in the same way as combining the isEmptyTile method and enemy tile for faster use
      */
     public boolean ally(String movingPiece, String possibleAlly) {
@@ -105,14 +104,14 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
-     * @param board
+     * @param row: row of selected position
+     * @param column: column of selected position
+     * @param currentBoard: the current board
      * @return a boolean on whether a row and column is a valid position on the board
      */
-    public boolean validPosition(int row, int column, String[][] board) {
-        int numRows = board.length;
-        int numColumns = board[0].length;
+    public boolean validPosition(int row, int column, String[][] currentBoard) {
+        int numRows = currentBoard.length;
+        int numColumns = currentBoard[0].length;
         if (row >= 0 && row < numRows) {
             if (column > 0 && column < numColumns) {//columns are nine across so valid moves can't be equal to zero (command lines)
                 return true;
@@ -123,9 +122,9 @@ public class GameRules {
 
     /**
      *
-     * @param row
-     * @param column , a positions column
-     * @return a two element array for a given row and column
+     * @param row: row of a position
+     * @param column: column of a position
+     * @return an int[] two element array for a given row and column
      */
     public int[] position(int row, int column) {
         int[] pos = {row, column};
@@ -134,6 +133,14 @@ public class GameRules {
 
 
     //pawn moves
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @param currentBoard
+     * @return
+     */
     public ArrayList<int[]> pawnPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> PAWNpossibleMoves = new ArrayList<>();
         //TODO en passant later
@@ -181,6 +188,14 @@ public class GameRules {
 
     //hardcoded moves for knight since there's only a max number of 8, and it is less dynamic
     //Rook moves
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @param currentBoard
+     * @return
+     */
     public ArrayList<int[]> horsePossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> HORSEpossibleMoves = new ArrayList<>();
 
@@ -229,6 +244,14 @@ public class GameRules {
     }
 
     //hardcoded moves for king as well since only max of 8, and less dynamic
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @param currentBoard
+     * @return
+     */
     public ArrayList<int[]> kingPossibleMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> KINGpossibleMoves = new ArrayList<>();
 
@@ -276,7 +299,11 @@ public class GameRules {
     }
 
 
-
+    /**
+     *
+     * @param board
+     * @return
+     */
     public String[][] flipBoard(String[][] board) {//will be useful to simplify operations
         int rows = board.length;
         int columns = board[0].length;
@@ -293,7 +320,13 @@ public class GameRules {
     }
 
 
-
+    /**
+     *
+     * @param row
+     * @param column
+     * @param currentBoard
+     * @return
+     */
     public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> possibleMoves = new ArrayList<>();
         boolean condition = true;
@@ -389,6 +422,14 @@ public class GameRules {
         }
         return possibleMoves;
     }
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @param currentBoard
+     * @return
+     */
     public ArrayList<int[]> getPossibleHorizontalAndVerticalMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
