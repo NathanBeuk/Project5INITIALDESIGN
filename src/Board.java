@@ -104,6 +104,14 @@ public class Board extends JFrame {
     }
 
 
+    /**
+     *
+     * @param row
+     * @param column
+     * @param possibleMoves
+     * @param lastposition
+     * @return
+     */
     public boolean shouldPieceMove(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition) {//checks if the last selected position was a valid tile, and if current selected tile in possible moves for last selected tile
         if (gameRules.validPosition(lastposition[0], lastposition[1], currentBoard)) {
 

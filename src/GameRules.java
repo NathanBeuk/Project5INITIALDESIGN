@@ -34,18 +34,12 @@ public class GameRules {
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
-                possibleMoves.addAll(bishopPossibleMovesDR(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesDL(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesUR(row, column, currentBoard));
-                possibleMoves.addAll(bishopPossibleMovesUL(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'Q') {
                 possibleMoves.addAll(possibleHorizontalandVerticalMoves(row, column, currentBoard));
 
-                possibleMoves.addAll(queenPossibleMovesDR(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesDL(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesUR(row, column, currentBoard));
-                possibleMoves.addAll(queenPossibleMovesUL(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'K') {
                 possibleMoves.addAll(kingPossibleMoves(row, column, currentBoard));
@@ -175,6 +169,93 @@ public class GameRules {
     }
 
 
+    public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard){
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+
+        boolean condition = true;
+
+        boolean downRight = true;
+        boolean upRight = true;
+        boolean downLeft = true;
+        boolean upLeft = true;
+        int i = 1;
+
+        while (condition) {
+
+            if(downRight){
+                if (validPosition(row + i, column + i, currentBoard)) {
+                    if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
+                        possibleMoves.add(position(row + i, column + i));
+                        if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) { //if an enemy is found, add possible move and then break the loop
+                            downRight = false;
+                        }
+                    } else { //if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                        downRight = false;
+                    }
+                } else { //if the move is not a valid position, the loop is broken
+                    downRight = false;
+                }
+            }
+
+            if (upRight){
+                if (validPosition(row - i, column + i, currentBoard)) {
+                    if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
+                        possibleMoves.add(position(row - i, column + i));
+                        if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {//if an enemy is found, add possible move and then break the loop
+                            upRight = false;
+                        }
+                    } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                        upRight = false;
+                    }
+                } else {//if the move is not a valid position, the loop is broken
+                    upRight = false;
+                }
+            }
+
+            if (downLeft){
+                if (validPosition(row + i, column - i, currentBoard)) {
+                    if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
+                        possibleMoves.add(position(row + i, column - i));
+                        if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                            downLeft = false;
+                        }
+                    } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                        downLeft = false;
+                    }
+                } else {//if the move is not a valid position, the loop is broken
+                    downLeft = false;
+                }
+            }
+
+            if(upLeft){
+                if (validPosition(row - i, column - i, currentBoard)) {
+                    if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
+                        possibleMoves.add(position(row - i, column - i));
+                        if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {//if an enemy is found, add possible move and then break the loop
+                            upLeft = false;
+                        }
+                    } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
+                        upLeft = false;
+                    }
+                } else {//if the move is not a valid position, the loop is broken
+                    upLeft = false;
+                }
+            }
+
+            if(!downRight){
+                if(!downLeft){
+                    if(!upRight){
+                        if(!upLeft){
+                            condition = false;
+                        }
+                    }
+                }
+            }
+            i = i + 1;
+        }
+
+        return possibleMoves;
+    }
     /**
      * @param row          , row of selected position
      * @param column       , column of selected position
