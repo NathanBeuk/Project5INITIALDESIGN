@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
- * @since 11-29-23
+ * @since 12-13-23
  */
 public class GameRules {
     /**
