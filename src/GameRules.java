@@ -84,7 +84,7 @@ public class GameRules {
      * @return a boolean on whether the piece on a tile is an enemy
      */
     public boolean enemy(String movingPiece, String possibleEnemy) {
-        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 || movingPiece.length() > 0 && possibleEnemy.length() > 0 && movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+        if (movingPiece.length() == 0 || possibleEnemy.length() == 0 ||  movingPiece.charAt(2) == possibleEnemy.charAt(2)) {//needs to check if empty string before trying to get any chars from it
             return false;//not an enemy
         }
         return true;//is an enemy
@@ -96,7 +96,7 @@ public class GameRules {
      * @return a boolean on whether a piece is an ally, redundant right now should be removed eventually
      */
     public boolean ally(String movingPiece, String possibleAlly) {
-        if (movingPiece.isEmpty() || possibleAlly.isEmpty() || !movingPiece.isEmpty() && !possibleAlly.isEmpty() && movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
+        if (movingPiece.isEmpty() || possibleAlly.isEmpty() || movingPiece.charAt(2) != possibleAlly.charAt(2)) {//needs to check if empty string before trying to get any chars from it
             return false; // not a friendly
         }
         return true;//is an ally

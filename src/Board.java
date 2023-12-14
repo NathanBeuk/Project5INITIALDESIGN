@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Description
+ * Description: extends the JFrame class
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
@@ -26,12 +26,13 @@ public class Board extends JFrame {
     private char team;
 
 
+
     public Board(String[][] board) {
 
         currentBoard = board;
         buttons = new JButton[board.length][board[0].length];
         lastSelectedPiecesPossibleMoves = new ArrayList<>();
-        lastSelectedPosition = new int[]{0, 0};//TODO invalid selection
+        lastSelectedPosition = new int[]{0, 0};
         gameRules = new GameRules();
         gameSequence = new GameSequence(board);
         team = 'W';
@@ -60,7 +61,7 @@ public class Board extends JFrame {
         normalizeColors();
 
         setSize(600, 600);//sets size of frame I think
-        setLocationRelativeTo(null);//centers it I think lol im just going off description TODO make sure this works the way I think it does
+        setLocationRelativeTo(null);//centers it I think lol im just going off description
         setVisible(true);
     }
 
@@ -98,6 +99,7 @@ public class Board extends JFrame {
             }
         }
     }
+
 
     public boolean shouldPieceMove(int row, int column, ArrayList<int[]> possibleMoves, int[] lastposition) {//checks if the last selected position was a valid tile, and if current selected tile in possible moves for last selected tile
         if (gameRules.validPosition(lastposition[0], lastposition[1], currentBoard)) {
