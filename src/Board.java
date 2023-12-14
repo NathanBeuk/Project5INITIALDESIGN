@@ -4,6 +4,14 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Description
+ * @author Adoniram Courser and Nathan Beukema
+ * @version 1.0
+ * @since 11-29-23
+ *
+ */
+
 public class Board extends JFrame {
     private String[][] currentBoard;
 

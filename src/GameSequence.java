@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 /**
- * This is the class that has the function of rewinding and fast-forwarding through the played game thus far.
+ * This is the class that contains the function for rewinding and fast-forwarding through the played game thus far.
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
