@@ -85,8 +85,8 @@ public class Board extends JFrame {
      * Sets the board to correct chessboard colors. Command line is left white
      */
     public void normalizeColors() {
-        Color tan = new Color(210, 180, 140);//should be tan-ish
-        Color darkRed = new Color(200, 0, 0);//should be dark red ish
+        Color tan = new Color(233, 237, 204);//should be tan-ish
+        Color darkRed = new Color(119, 153, 84);//should be dark red ish
         Color white = Color.WHITE;
         Color black = Color.black;
         for (int i = 0; i < 8; i = i + 1) {
@@ -98,7 +98,7 @@ public class Board extends JFrame {
                 } else {
                     buttons[i][j].setBackground(darkRed);
                 }
-                buttons[i][j].setBorder(new LineBorder(black, 2));// apparently 2 pixels thick
+                buttons[i][j].setBorder(new LineBorder(black, 0));// apparently 2 pixels thick
             }
         }
     }
@@ -132,7 +132,7 @@ public class Board extends JFrame {
      */
     public void colorPossibleMoves(ArrayList<int[]> possibleMoves) {//TODO not finished I think
 
-        Color color = new Color(255, 153, 0);
+        Color color = new Color(200, 64, 64);
 
         for (int i = 0; i < possibleMoves.size(); i = i + 1) {
             buttons[possibleMoves.get(i)[0]][possibleMoves.get(i)[1]].setBackground(color);
@@ -211,8 +211,9 @@ public class Board extends JFrame {
             } else {
                 lastSelectedPosition[0] = row;
                 lastSelectedPosition[1] = column;
+                Color color = new Color(187, 204, 68);
 
-                buttons[row][column].setBackground(Color.cyan);
+                buttons[row][column].setBackground(color);
                 String lastPiece = currentBoard[row][column];
                 if (lastPiece.length() > 0) {//if piece selected isn't an empty string
                     if (lastPiece.charAt(2) == team) {
