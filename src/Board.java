@@ -64,6 +64,9 @@ public class Board extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Sets the board to correctly display the input of the starterBoard
+     */
     public void setBoardText() {
         for (int i = 0; i < 8; i = i + 1) {
             for (int j = 0; j < 9; j = j + 1) {//9 columns for commands lines
@@ -74,6 +77,9 @@ public class Board extends JFrame {
         }
     }
 
+    /**
+     * Sets the board to correct chessboard colors. Command line is left white
+     */
     public void normalizeColors() {
         Color tan = new Color(210, 180, 140);//should be tan-ish
         Color darkRed = new Color(200, 0, 0);//should be dark red ish
@@ -106,6 +112,11 @@ public class Board extends JFrame {
         return false;
     }
 
+    /**
+     *
+     * @param possibleMoves ArrayList of possible moves for a selected piece
+     * colors each possible move for selection by the user
+     */
     public void colorPossibleMoves(ArrayList<int[]> possibleMoves) {//TODO not finished I think
 
         Color color = new Color(255, 153, 0);
@@ -115,6 +126,9 @@ public class Board extends JFrame {
         }
     }
 
+    /**
+     *  Swaps team after each move that is made
+     */
     public void teamSwap() {
         if (team == 'W') {
             team = 'B';
@@ -123,6 +137,12 @@ public class Board extends JFrame {
         }
     }
 
+    /**
+     * @param row row index of the button that is pressed
+     * @param column column index of the button that is pressed
+     *
+     * @return chooses the correct action to take based off of the state of the button selected
+     */
     public void buttonPressed(int row, int column) {
         if (column == 0) {//fires if pressed a command button so no rules need be referenced
             if (row == 0) {
