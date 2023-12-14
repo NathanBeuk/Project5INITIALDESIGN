@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 /**
- * Description
+ * This is the class that has the function of rewinding and fast-forwarding through the played game thus far.
  *
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
@@ -10,7 +10,8 @@ import java.util.Stack;
 public class GameSequence {
 
     /**
-     * A stack to hold all the boards
+     * Stacks for holding past boards, and future boards
+     * presentBoard is the current state of the chess board
      */
     private Stack<String[][]> pastBoards = new Stack<>();
     private String[][] presentBoard;
@@ -23,17 +24,25 @@ public class GameSequence {
         presentBoard = deepCopy(startingBoard);
     }
 
-    public void move(String[][] newBoard) {
 
+    /**
+     * @param newBoard a representation of the game board after a move is made
+     * @return moves the presentBoard onto the pastBoards stack, to leave room for the next presentBoard.
+     * Clears the stack of futureBoards after a move is made, since that future is no longer playable
+     */
+    public void move(String[][] newBoard) {
         pastBoards.push(presentBoard);
         presentBoard = deepCopy(newBoard);
         if (futureBoards.size() > 0) {
             futureBoards.clear();
         }
-
-
     }
 
+    /**
+     * @param board a representation of the game board
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * Takes most recent move from play and puts it onto a rewound moves stack.
+     */
     public String[][] deepCopy(String[][] board) {
         String[][] copy = new String[board.length][board[0].length];
 
@@ -41,19 +50,15 @@ public class GameSequence {
             for (int j = 0; j < board[0].length; j++) {
                 String string = board[i][j];
                 copy[i][j] = string + "";
-
             }
         }
         return copy;
     }
 
     /**
-     * returns a boards at a certain index (number of moves since beginning of game)
-     *
-     * @return
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * Takes most recent move from play and puts it onto a rewound moves stack.
      */
-
-    //takes most recent move from play and puts it onto a rewound moves stack
     public String[][] gameRewind() {
         if (pastBoards.size() != 0) {
             futureBoards.push(presentBoard);
@@ -62,15 +67,15 @@ public class GameSequence {
         return deepCopy(presentBoard);
     }
 
-
-
-    // takes most recent move from removed moves and reinserts it onto the actual game stack
+    /**
+     * @return returns a boards at a certain index (number of moves since beginning of game).
+     * takes most recent move from removed moves and reinserts it onto the actual game stack.
+     */
     public String[][] gameForward() {
         if (futureBoards.size() != 0) {
             pastBoards.push(presentBoard);
             presentBoard = deepCopy(futureBoards.pop());
         }
-
         return deepCopy(presentBoard);
     }
 }
