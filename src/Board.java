@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Description: extends the JFrame class
+ * Description: extends the JFrame class, performs most of the boards actions including taking user input and directing it to correct functions
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
@@ -54,7 +54,7 @@ public class Board extends JFrame {
             for (int j = 0; j < 9; j = j + 1) {//9 columns for commands lines
 
                 buttons[i][j] = new JButton();
-                buttons[i][j].addActionListener(new ButtonClickListener(i, j, this));
+                buttons[i][j].addActionListener(new ButtonActionListener(i, j, this));
                 buttons[i][j].setPreferredSize(buttonSize);
 
                 add(buttons[i][j]);//adds button to content pane of frame so its presented
