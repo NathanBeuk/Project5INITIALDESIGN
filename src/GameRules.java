@@ -30,14 +30,14 @@ public class GameRules {
             if (piece.charAt(0) == 'P') {
                 possibleMoves.addAll(pawnPossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'R') {
-                possibleMoves.addAll(possibleHorizontalAndVerticalMoves(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleHorizontalAndVerticalMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
                 possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'Q') {
-                possibleMoves.addAll(possibleHorizontalAndVerticalMoves(row, column, currentBoard));
+                possibleMoves.addAll(getPossibleHorizontalAndVerticalMoves(row, column, currentBoard));
 
                 possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
@@ -178,7 +178,6 @@ public class GameRules {
     public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
-        System.out.println("what the heck is going on");
         boolean condition = true;
 
         boolean downRight = true;
@@ -264,10 +263,14 @@ public class GameRules {
         return possibleMoves;
     }
 
-
-
-
-    public ArrayList<int[]> possibleHorizontalAndVerticalMoves(int row, int column, String[][] currentBoard) {
+    /**
+     * @param row          , row of selected position
+     * @param column       , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+    public ArrayList<int[]> getPossibleHorizontalAndVerticalMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> horizontalnadVerticalMoves = new ArrayList<>();
 
         for (int i = row - 1; i >= 0; i--) { //up
