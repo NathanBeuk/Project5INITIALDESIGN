@@ -2,7 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Description: extends the JFrame class, performs most of the boards actions including taking user input and directing it to correct functions
+ * Description: implements
  * @author Adoniram Courser and Nathan Beukema
  * @version 1.0
  * @since 11-29-23
