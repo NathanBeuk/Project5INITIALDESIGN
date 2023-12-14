@@ -30,7 +30,7 @@ public class GameRules {
             if (piece.charAt(0) == 'P') {
                 possibleMoves.addAll(pawnPossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'R') {
-                possibleMoves.addAll(rookPossibleMoves(row, column, currentBoard));
+                possibleMoves.addAll(possibleHorizontalandVerticalMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
@@ -40,7 +40,7 @@ public class GameRules {
                 possibleMoves.addAll(bishopPossibleMovesUL(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'Q') {
-                possibleMoves.addAll(queenPossibleMoves(row, column, currentBoard));
+                possibleMoves.addAll(possibleHorizontalandVerticalMoves(row, column, currentBoard));
 
                 possibleMoves.addAll(queenPossibleMovesDR(row, column, currentBoard));
                 possibleMoves.addAll(queenPossibleMovesDL(row, column, currentBoard));
@@ -295,26 +295,21 @@ public class GameRules {
         return BISHOPpossiblemovesUL;
     }
 
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> rookPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> ROOKpossiblemoves = new ArrayList<>();
+
+
+    public ArrayList<int[]> possibleHorizontalandVerticalMoves(int row, int column, String[][] currentBoard) {
+        ArrayList<int[]> horizontalnadVerticalMoves = new ArrayList<>();
 
         for (int i = row - 1; i >= 0; i--) { //up
             if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
                 break;
             }
             if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                ROOKpossiblemoves.add(position(i, column));
+                horizontalnadVerticalMoves.add(position(i, column));
                 break;
             }
             if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                ROOKpossiblemoves.add(position(i, column));
+                horizontalnadVerticalMoves.add(position(i, column));
             }
         }
 
@@ -323,11 +318,11 @@ public class GameRules {
                 break;
             }
             if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                ROOKpossiblemoves.add(position(row, i));
+                horizontalnadVerticalMoves.add(position(row, i));
                 break;
             }
             if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                ROOKpossiblemoves.add(position(row, i));
+                horizontalnadVerticalMoves.add(position(row, i));
             }
         }
 
@@ -336,11 +331,11 @@ public class GameRules {
                 break;
             }
             if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                ROOKpossiblemoves.add(position(i, column));
+                horizontalnadVerticalMoves.add(position(i, column));
                 break;
             }
             if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                ROOKpossiblemoves.add(position(i, column));
+                horizontalnadVerticalMoves.add(position(i, column));
             }
         }
 
@@ -349,15 +344,26 @@ public class GameRules {
                 break;
             }
             if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                ROOKpossiblemoves.add(position(row, i));
+                horizontalnadVerticalMoves.add(position(row, i));
                 break;
             }
             if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                ROOKpossiblemoves.add(position(row, i));
+                horizontalnadVerticalMoves.add(position(row, i));
             }
         }
-        return ROOKpossiblemoves;
+
+        return horizontalnadVerticalMoves;
     }
+
+
+    /**
+     * @param row          , row of selected position
+     * @param column       , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
+
 
     /**
      * @param row          , row of selected position
@@ -366,64 +372,8 @@ public class GameRules {
      * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the row and column visible to the Queen.
      * Includes possible enemies to take, and excludes allied occupied squares.
      */
-    public ArrayList<int[]> queenPossibleMoves(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMoves = new ArrayList<>();
+    /*
 
-        // VERTICAL and HORIZONTAL movement
-        for (int i = row - 1; i >= 0; i--) { //up
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = row + 1; i < currentBoard.length; i++) { //down
-            if (ally(currentBoard[row][column], currentBoard[i][column])) {//if there is an ally at the board index, loop breaks and possible move location is not added
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[i][column])) { //if there is an enemy at the board index, the move is added and then the loop is broken
-                QUEENpossibleMoves.add(position(i, column));
-                break;
-            }
-            if (validPosition(i, column, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                QUEENpossibleMoves.add(position(i, column));
-            }
-        }
-
-        for (int i = column - 1; i > 0; i--) { // left
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        for (int i = column + 1; i < currentBoard[0].length; i++) { // right
-            if (ally(currentBoard[row][column], currentBoard[row][i])) {//if there is an ally at the board index, loop breaks and possible move location is not added
-                break;
-            }
-            if (enemy(currentBoard[row][column], currentBoard[row][i])) {//if there is an enemy at the board index, the move is added and then the loop is broken
-                QUEENpossibleMoves.add(position(row, i));
-                break;
-            }
-            if (validPosition(row, i, currentBoard)) {//if both other checks are passed, move is added as possible if at a valid index of the board.
-                QUEENpossibleMoves.add(position(row, i));
-            }
-        }
-
-        return QUEENpossibleMoves;
-    }
 
     /**
      * @param row          , row of selected position

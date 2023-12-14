@@ -27,6 +27,10 @@ public class Board extends JFrame {
 
 
 
+
+    /**
+     * Starts the chess game
+     */
     public Board(String[][] board) {
 
         currentBoard = board;
@@ -36,7 +40,6 @@ public class Board extends JFrame {
         gameRules = new GameRules();
         gameSequence = new GameSequence(board);
         team = 'W';
-
 
         //following lines of code are possible because it extends the JFrame class, meaning we don't have to call new JFrame (since this is a JFrame)
         setTitle("Chess");//just sets the title of the JFrame
@@ -143,7 +146,7 @@ public class Board extends JFrame {
      * @param row row index of the button that is pressed
      * @param column column index of the button that is pressed
      *
-     * @return chooses the correct action to take based off of the state of the button selected
+     * Chooses the correct action to take based off of the state of the button selected
      */
     public void buttonPressed(int row, int column) {
         if (column == 0) {//fires if pressed a command button so no rules need be referenced
