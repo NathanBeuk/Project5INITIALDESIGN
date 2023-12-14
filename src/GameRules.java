@@ -178,6 +178,7 @@ public class GameRules {
     public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
+        System.out.println("what the heck is going on");
         boolean condition = true;
 
         boolean downRight = true;
