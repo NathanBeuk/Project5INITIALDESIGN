@@ -30,14 +30,14 @@ public class GameRules {
             if (piece.charAt(0) == 'P') {
                 possibleMoves.addAll(pawnPossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'R') {
-                possibleMoves.addAll(possibleHorizontalandVerticalMoves(row, column, currentBoard));
+                possibleMoves.addAll(possibleHorizontalAndVerticalMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'H') {
                 possibleMoves.addAll(horsePossibleMoves(row, column, currentBoard));
             } else if (piece.charAt(0) == 'B') {
                 possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
             } else if (piece.charAt(0) == 'Q') {
-                possibleMoves.addAll(possibleHorizontalandVerticalMoves(row, column, currentBoard));
+                possibleMoves.addAll(possibleHorizontalAndVerticalMoves(row, column, currentBoard));
 
                 possibleMoves.addAll(getPossibleDiagonalMoves(row, column, currentBoard));
 
@@ -168,7 +168,13 @@ public class GameRules {
         return PAWNpossibleMoves;
     }
 
-
+    /**
+     * @param row          , row of selected position
+     * @param column       , column of selected position
+     * @param currentBoard , takes current board
+     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/right diagonal.
+     * Includes possible enemies to take, and excludes allied occupied squares.
+     */
     public ArrayList<int[]> getPossibleDiagonalMoves(int row, int column, String[][] currentBoard){
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
@@ -256,129 +262,11 @@ public class GameRules {
 
         return possibleMoves;
     }
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/right diagonal.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> bishopPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    BISHOPpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) { //if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else { //if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else { //if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDR;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/right diagonal.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> bishopPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    BISHOPpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesUR;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the down/left diagonal.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> bishopPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossibleMovesDL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    BISHOPpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossibleMovesDL;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Bishop at a given location on the chess board for the up/left diagonal.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> bishopPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> BISHOPpossiblemovesUL = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    BISHOPpossiblemovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return BISHOPpossiblemovesUL;
-    }
 
 
 
-    public ArrayList<int[]> possibleHorizontalandVerticalMoves(int row, int column, String[][] currentBoard) {
+
+    public ArrayList<int[]> possibleHorizontalAndVerticalMoves(int row, int column, String[][] currentBoard) {
         ArrayList<int[]> horizontalnadVerticalMoves = new ArrayList<>();
 
         for (int i = row - 1; i >= 0; i--) { //up
@@ -434,144 +322,6 @@ public class GameRules {
         }
 
         return horizontalnadVerticalMoves;
-    }
-
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for a Rook at a given location on the chess board for the row and column visible to the Rook.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the row and column visible to the Queen.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    /*
-
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/right diagonal visible to the Queen.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> queenPossibleMovesDR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column + i, currentBoard)) {
-                if (isEmptyTile(row + i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {
-                    QUEENpossibleMovesDR.add(position(row + i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column + i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDR;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/right diagonal visible to the Queen.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> queenPossibleMovesUR(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUR = new ArrayList<>();
-
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column + i, currentBoard)) {
-                if (isEmptyTile(row - i, column + i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {
-                    QUEENpossibleMovesUR.add(position(row - i, column + i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column + i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUR;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the down/left diagonal visible to the Queen.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> queenPossibleMovesDL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesDL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row + i, column - i, currentBoard)) {
-                if (isEmptyTile(row + i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {
-                    QUEENpossibleMovesDL.add(position(row + i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row + i][column - i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesDL;
-    }
-
-    /**
-     * @param row          , row of selected position
-     * @param column       , column of selected position
-     * @param currentBoard , takes current board
-     * @return returns an ArrayList of the possible moves for the Queen at a given location on the chess board for the up/left diagonal visible to the Queen.
-     * Includes possible enemies to take, and excludes allied occupied squares.
-     */
-    public ArrayList<int[]> queenPossibleMovesUL(int row, int column, String[][] currentBoard) {
-        ArrayList<int[]> QUEENpossibleMovesUL = new ArrayList<>();
-        boolean condition = true;
-        int i = 1;
-        while (condition) {
-            if (validPosition(row - i, column - i, currentBoard)) {
-                if (isEmptyTile(row - i, column - i, currentBoard) || enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {
-                    QUEENpossibleMovesUL.add(position(row - i, column - i));
-                    if (enemy(currentBoard[row][column], currentBoard[row - i][column - i])) {//if an enemy is found, add possible move and then break the loop
-                        condition = false;
-                    }
-                } else {//if tile is not empty and is not caught by enemy boolean, it is a friendly and the move is not added
-                    condition = false;
-                }
-            } else {//if the move is not a valid position, the loop is broken
-                condition = false;
-            }
-            i = i + 1;
-        }
-        return QUEENpossibleMovesUL;
     }
 
     /**
